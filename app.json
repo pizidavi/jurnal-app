@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Jurnal",
+    "description": "Save your thoughts, ideas, and memories with Jurnal",
+    "slug": "jurnal",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "platforms": ["android", "ios"],
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "package": "app.getjurnal.mobile",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "ios": {
+      "bundleIdentifier": "app.getjurnal.mobile",
+      "supportsTablet": false
+    }
+  }
+}

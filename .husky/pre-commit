@@ -1,0 +1,7 @@
+# Run TypeScript type checking only if TypeScript files are staged
+if git diff --cached --name-only | grep -E '\.(ts|tsx)$' > /dev/null; then
+  echo "Checking..."
+  npx tsc --noEmit
+fi
+# Run Lint-Staged
+npx lint-staged
