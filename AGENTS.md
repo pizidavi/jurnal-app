@@ -5,25 +5,10 @@ React Native/Expo journaling app with TypeScript + TailwindCSS (via uniwind).
 ## Commands
 
 ```bash
-# Development
-yarn dev                 # Start Expo dev server (clears cache)
-yarn android            # Run on Android
-yarn ios                # Run on iOS
-
-# Quality checks
 yarn typecheck          # TypeScript validation
 yarn lint               # ESLint
 yarn format             # Prettier
-
-# Build
-yarn prebuild           # Generate native directories
-yarn android:build      # Local Android build (EAS)
-yarn ios:build          # Local iOS build (EAS)
 ```
-
-**Testing:** No test suite configured yet.
-
-**Pre-commit:** Runs `tsc --noEmit` on staged TS files + `lint-staged` (Prettier + ESLint with `--max-warnings 0`).
 
 ## Architecture
 
