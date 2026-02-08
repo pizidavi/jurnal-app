@@ -3,22 +3,21 @@ import { ScrollView, type ScrollViewProps, View, type ViewProps } from 'react-na
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { clx } from '../../util/util';
 
-type BaseScreenProps = {
+type BaseScreenProps<T extends 'view' | 'scroll'> = {
   children: ReactNode;
-} & (
-  | ({
+} & (T extends 'view'
+  ? {
       as: 'view';
-    } & ViewProps)
-  | ({
-      as: 'scroll';
-    } & ScrollViewProps)
-);
+    } & ViewProps
+  : {
+      as?: 'scroll';
+    } & ScrollViewProps);
 
 /**
  * Base screen
  * @param props
  */
-function BaseScreen(props: BaseScreenProps) {
+function BaseScreen<T extends 'view' | 'scroll'>(props: BaseScreenProps<T>) {
   const { children, as, className, ...rest } = props;
 
   // Hooks

@@ -25,6 +25,7 @@
     "ios": {
       "bundleIdentifier": "app.getjurnal.mobile",
       "supportsTablet": false
-    }
+    },
+    "plugins": ["expo-localization"]
   }
 }

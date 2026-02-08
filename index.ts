@@ -2,6 +2,7 @@
 import { registerRootComponent } from 'expo';
 
 // App
+import './src/locale';
 import App from './src/App';
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);

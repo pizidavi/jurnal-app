@@ -16,7 +16,7 @@ function App() {
 function Providers() {
   // Render
   return (
-    <GestureHandlerRootView style={styles.main}>
+    <GestureHandlerRootView className='bg-background' style={styles.main}>
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
           <StatusBar translucent backgroundColor='transparent' />
