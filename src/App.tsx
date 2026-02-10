@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaListener, SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Uniwind } from 'uniwind';
 import Navigation from './component/navigation/Navigation';
+import SQLiteProvider from './component/provider/SQLiteProvider';
 import { queryClient } from './config/client';
 
 function App() {
@@ -19,12 +20,14 @@ function Providers() {
     <GestureHandlerRootView className='bg-background' style={styles.main}>
       <QueryClientProvider client={queryClient}>
         <SafeAreaProvider>
-          <StatusBar translucent backgroundColor='transparent' />
-          <SafeAreaListener onChange={({ insets }) => Uniwind.updateInsets(insets)}>
-            <SafeAreaView edges={['left', 'right']} style={styles.main}>
-              <App />
-            </SafeAreaView>
-          </SafeAreaListener>
+          <SQLiteProvider>
+            <StatusBar translucent backgroundColor='transparent' />
+            <SafeAreaListener onChange={({ insets }) => Uniwind.updateInsets(insets)}>
+              <SafeAreaView edges={['left', 'right']} style={styles.main}>
+                <App />
+              </SafeAreaView>
+            </SafeAreaListener>
+          </SQLiteProvider>
         </SafeAreaProvider>
       </QueryClientProvider>
     </GestureHandlerRootView>

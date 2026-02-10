@@ -1,5 +1,9 @@
 {
   "general": {
     "welcome": "Benvenuto!"
+  },
+  "migration": {
+    "failed": "Errore durante l'esecuzione dell'aggiornamento, contattare il supporto",
+    "inProgress": "Aggiornamento in corso, attendere prego..."
   }
 }
