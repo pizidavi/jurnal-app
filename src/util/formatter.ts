@@ -1,7 +1,7 @@
 /**
  * Formats date to a human-readable format
  */
-export const formateDate = (date: Date | number) => {
+export const formatDate = (date: Date | number) => {
   if (typeof date === 'number') {
     date = new Date(date);
   }

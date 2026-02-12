@@ -38,7 +38,7 @@ function LocaleText<T extends boolean = false>(props: LocaleTextProps<T>) {
   const BaseText = useCallback(
     (props: { children: React.ReactNode }) => (
       <Text
-        className={clx('text-foreground text-base font-medium', className)}
+        className={clx('text-base font-medium text-foreground', className)}
         {...rest}
         {...props}
       />

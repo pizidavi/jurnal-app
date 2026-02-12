@@ -1,6 +1,6 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
-export const notes = sqliteTable('notes', {
+export const notesTable = sqliteTable('notes', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   content: text('content').notNull(),
   createdAt: integer('created_at')
@@ -13,5 +13,5 @@ export const notes = sqliteTable('notes', {
 });
 
 // Export Note to use as an interface in your app
-export type Note = typeof notes.$inferSelect;
-export type NewNote = typeof notes.$inferInsert;
+export type Note = typeof notesTable.$inferSelect;
+export type NewNote = typeof notesTable.$inferInsert;

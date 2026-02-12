@@ -35,7 +35,7 @@ function SQLiteProvider({ children }: { children: React.ReactNode }) {
       {error ? (
         <LocaleText text='migration:failed' className='text-center' />
       ) : (
-        <View className='items-center justify-center gap-4'>
+        <View className='items-center justify-center gap-base'>
           <LocaleText text='migration:inProgress' className='text-muted-foreground' />
           <ActivityIndicator size='large' color='primary' />
         </View>

@@ -18,5 +18,6 @@
   "useTabs": false,
   "vueIndentScriptAndStyle": false,
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindFunctions": ["clx"]
+  "tailwindFunctions": ["clx"],
+  "tailwindStylesheet": "src/global.css"
 }

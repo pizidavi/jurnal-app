@@ -38,14 +38,14 @@ function Button(props: ButtonProps) {
   // Memo
   const mainClassName = useMemo(() => {
     const base = clx(
-      'min-h-11 flex-row items-center justify-between gap-2 rounded px-4',
+      'min-h-11 flex-row items-center justify-between gap-sm rounded px-4',
       disabled ? 'opacity-80' : '',
     );
     switch (theme) {
       case 'primary':
-        return clx(base, 'bg-primary border-primary border', className);
+        return clx(base, 'border border-primary bg-primary', className);
       case 'outline':
-        return clx(base, 'bg-background border-primary border', className);
+        return clx(base, 'border border-primary bg-background', className);
     }
     theme satisfies never;
   }, [theme, className, disabled]);

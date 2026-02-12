@@ -2,16 +2,19 @@
 @import 'uniwind';
 
 /* Add custom classes to tailwind-merge in /src/util/util.ts */
-@theme inline {
+@theme {
   /* Radius */
   --radius-*: initial;
-  --radius: 0.375rem;
+  --radius: 0.5rem;
 
   /* Shadow */
   --shadow-*: initial;
   --shadow: var(--shadow);
 
   /* Font size */
+  --text-*: initial;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
   --text-h1: 2.25rem;
   --text-h2: 1.875rem;
   --text-h3: 1.5rem;
@@ -19,6 +22,12 @@
   --text-h5: 1.125rem;
   --text-h6: 1rem;
 
+  /* Spacing */
+  --spacing-sm: 0.5rem;
+  --spacing-base: 1rem;
+}
+
+@theme inline {
   /* Color */
   --color-*: initial;
   --color-background: var(--background);

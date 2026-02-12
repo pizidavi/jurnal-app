@@ -1,9 +1,14 @@
 {
   "general": {
-    "welcome": "Benvenuto!"
+    "error": "Errore",
+    "goBack": "Torna indietro",
+    "hello": "Ciao!"
   },
   "migration": {
     "failed": "Errore durante l'esecuzione dell'aggiornamento, contattare il supporto",
     "inProgress": "Aggiornamento in corso, attendere prego..."
+  },
+  "note": {
+    "notFound": "Nota non trovata"
   }
 }
