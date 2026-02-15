@@ -37,7 +37,11 @@ function BaseScreen<T extends 'view' | 'scroll'>(props: BaseScreenProps<T>) {
   // Render
   return (
     <View className='flex-1 bg-background' style={mainStyle}>
-      {as === 'scroll' ? (
+      {as === 'view' ? (
+        <View className={clx('flex-1 p-base', className)} {...rest}>
+          {children}
+        </View>
+      ) : (
         <ScrollView
           bounces={false}
           automaticallyAdjustKeyboardInsets={true}
@@ -46,10 +50,6 @@ function BaseScreen<T extends 'view' | 'scroll'>(props: BaseScreenProps<T>) {
         >
           {children}
         </ScrollView>
-      ) : (
-        <View className={clx('flex-1 p-base', className)} {...rest}>
-          {children}
-        </View>
       )}
     </View>
   );

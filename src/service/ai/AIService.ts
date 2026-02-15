@@ -4,7 +4,7 @@ import {
   SpeechToTextModule,
   WHISPER_SMALL,
 } from 'react-native-executorch';
-import { appLog } from '../../util/logger';
+import { transcriptionLog } from '../../util/logger';
 
 class AIService {
   private readonly model = new SpeechToTextModule();
@@ -30,7 +30,7 @@ class AIService {
           if (_.length < 4) throw new Error('Transcription result is empty');
           return _;
         } catch (e) {
-          appLog.error(`Transcription attempt ${retry + 1} failed`, e);
+          transcriptionLog.error(`Transcription attempt ${retry + 1} failed`, e);
           retry++;
           if (retry >= 3) throw new Error('Failed to transcribe audio after 3 attempts');
         }

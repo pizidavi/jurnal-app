@@ -3,7 +3,7 @@ import { consoleTransport, logger } from 'react-native-logs';
 
 const log = logger.createLogger({
   transport: consoleTransport,
-  enabledExtensions: ['API', 'APP'],
+  enabledExtensions: ['API', 'APP', 'LLM'],
   severity: 'debug',
   transportOptions: {
     colors: {
@@ -16,5 +16,7 @@ const log = logger.createLogger({
 
 const apiLog = log.extend('API');
 const appLog = log.extend('APP');
+const llmLog = log.extend('LLM');
+const transcriptionLog = log.extend('TRANSCRIPTION');
 
-export { apiLog, appLog };
+export { apiLog, appLog, llmLog, transcriptionLog };

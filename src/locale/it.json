@@ -1,13 +1,15 @@
 {
   "general": {
+    "apiKey": "API Key",
+    "baseURL": "Base URL",
     "error": "Errore",
     "goBack": "Torna indietro",
     "hello": "Ciao!",
+    "llmProvider": "LLM Provider",
     "record": "Registra",
-    "recording": "Registrazione in corso"
-  },
-  "home": {
-    "pressButtonToStart": "Premi il pulsante in basso per iniziare!"
+    "recording": "Registrazione in corso",
+    "save": "Salva",
+    "settings": "Impostazioni"
   },
   "migration": {
     "failed": "Errore durante l'esecuzione dell'aggiornamento, contattare il supporto",
@@ -15,5 +17,9 @@
   },
   "note": {
     "notFound": "Nota non trovata"
+  },
+  "onboarding": {
+    "1-setupModels": "Configura i modelli AI",
+    "2-pressButton": "Premi il pulsante in basso per iniziare!"
   }
 }

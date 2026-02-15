@@ -1,13 +1,15 @@
 {
   "general": {
+    "apiKey": "API Key",
+    "baseURL": "Base URL",
     "error": "Error",
     "goBack": "Go back",
     "hello": "Hello!",
+    "llmProvider": "LLM Provider",
     "record": "Record",
-    "recording": "Recording"
-  },
-  "home": {
-    "pressButtonToStart": "Press the button below to get started!"
+    "recording": "Recording",
+    "save": "Save",
+    "settings": "Settings"
   },
   "migration": {
     "failed": "Error while running the update, please contact support",
@@ -15,5 +17,9 @@
   },
   "note": {
     "notFound": "Note not found"
+  },
+  "onboarding": {
+    "1-setupModels": "Set up AI models",
+    "2-pressButton": "Press the button below to get started!"
   }
 }

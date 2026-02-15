@@ -1,9 +1,10 @@
+import { eq } from 'drizzle-orm';
 import { CircleStopIcon } from 'lucide-react-native';
 import { useCallback, useEffect, useState } from 'react';
 import { Modal, View } from 'react-native';
 import type { SpeechToTextLanguage } from 'react-native-executorch';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { aiService, audioService, db, eventEmitter } from '../../config/client';
+import { aiService, audioService, db, eventEmitter, llmService } from '../../config/client';
 import { notesTable } from '../../database/schema';
 import i18n from '../../locale';
 import { appLog } from '../../util/logger';
@@ -12,13 +13,25 @@ import Icon from '../common/Icon';
 import LocaleText from '../common/LocaleText';
 
 const createNote = async (path: string) => {
-  const transcription = await aiService.transcribeAudio(
-    path,
-    i18n.language as SpeechToTextLanguage,
-  );
-  appLog.debug('Transcription result', transcription);
+  // Create note
+  const [note] = await db.insert(notesTable).values({ content: '' }).returning();
+  appLog.debug('Note created', { noteId: note.id });
 
-  await db.insert(notesTable).values({ content: transcription });
+  // Transcribe audio
+  const transcription = await aiService
+    .transcribeAudio(path, i18n.language as SpeechToTextLanguage)
+    .catch(async e => {
+      appLog.error('Failed to transcribe audio', e);
+      await db.delete(notesTable).where(eq(notesTable.id, note.id)); // Clean up the empty note
+      throw e; // Rethrow to be caught by caller and show error toast
+    });
+  await db.update(notesTable).set({ content: transcription }).where(eq(notesTable.id, note.id));
+  appLog.debug('Note transcribed', { noteId: note.id });
+
+  // Enrich note
+  const enrichedContent = await llmService.enrichTranscription(transcription);
+  await db.update(notesTable).set({ content: enrichedContent }).where(eq(notesTable.id, note.id));
+  appLog.debug('Note enriched', { noteId: note.id });
 };
 
 function NoteModal() {
@@ -45,7 +58,7 @@ function NoteModal() {
       .then(async result => {
         appLog.debug('Recording stopped, file saved', result);
 
-        if (result.duration < 5) {
+        if (result.duration < 2) {
           appLog.warn('Recording too short, ignoring');
           // TODO: Show toast "Recording too short"
           return;

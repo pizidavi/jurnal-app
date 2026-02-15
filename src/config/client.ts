@@ -5,6 +5,7 @@ import { openDatabaseSync } from 'expo-sqlite';
 import * as schema from '../database/schema';
 import AIService from '../service/ai/AIService';
 import AudioService from '../service/audio/AudioService';
+import LLMService from '../service/llm/LLMService';
 import type { Events } from '../type/struct';
 import { DATABASE_NAME } from './constant';
 
@@ -24,3 +25,5 @@ export const db = drizzle(expoDatabase, { schema });
 export const audioService = new AudioService();
 
 export const aiService = new AIService();
+
+export const llmService = new LLMService();
