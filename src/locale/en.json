@@ -2,7 +2,12 @@
   "general": {
     "error": "Error",
     "goBack": "Go back",
-    "hello": "Hello!"
+    "hello": "Hello!",
+    "record": "Record",
+    "recording": "Recording"
+  },
+  "home": {
+    "pressButtonToStart": "Press the button below to get started!"
   },
   "migration": {
     "failed": "Error while running the update, please contact support",

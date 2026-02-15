@@ -77,7 +77,7 @@ function Button(props: ButtonProps) {
       onPress={onPress}
       className={mainClassName}
       hitSlop={5}
-      style={({ pressed }) => [{ opacity: pressed ? 0.8 : 1 }]}
+      style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
       disabled={!!loading || !!disabled}
     >
       <View className='w-6 justify-center'>{Icon && <Icon size={25} color={iconColor} />}</View>

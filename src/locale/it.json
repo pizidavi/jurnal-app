@@ -2,7 +2,12 @@
   "general": {
     "error": "Errore",
     "goBack": "Torna indietro",
-    "hello": "Ciao!"
+    "hello": "Ciao!",
+    "record": "Registra",
+    "recording": "Registrazione in corso"
+  },
+  "home": {
+    "pressButtonToStart": "Premi il pulsante in basso per iniziare!"
   },
   "migration": {
     "failed": "Errore durante l'esecuzione dell'aggiornamento, contattare il supporto",

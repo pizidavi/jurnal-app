@@ -3,6 +3,7 @@
     "name": "Jurnal",
     "description": "Save your thoughts, ideas, and memories with Jurnal",
     "slug": "jurnal",
+    "owner": "pizidavi",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -19,13 +20,45 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions": ["android.permission.RECORD_AUDIO"],
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "ios": {
       "bundleIdentifier": "app.getjurnal.mobile",
-      "supportsTablet": false
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "This app requires access to the microphone to record audio."
+      }
     },
-    "plugins": ["expo-localization", "expo-sqlite"]
+    "plugins": [
+      "expo-localization",
+      "expo-sqlite",
+      [
+        "react-native-permissions",
+        {
+          "iosPermissions": ["Microphone"]
+        }
+      ],
+      [
+        "react-native-audio-api",
+        {
+          "iosBackgroundMode": true,
+          "iosMicrophonePermission": "This app requires access to the microphone to record audio.",
+          "androidPermissions": [
+            "android.permission.MODIFY_AUDIO_SETTINGS",
+            "android.permission.FOREGROUND_SERVICE",
+            "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+          ],
+          "androidForegroundService": true,
+          "androidFSTypes": ["mediaPlayback"]
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5d6097bf-bd84-4524-a1c4-d2bfb7257fcf"
+      }
+    }
   }
 }

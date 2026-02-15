@@ -20,7 +20,7 @@ function NoteCard(props: NoteCardProps) {
   return (
     <View className={clx('gap-sm', className)}>
       <View className='h-56 rounded bg-surface p-sm'>
-        <LocaleText text={content} className='text-justify text-sm' avoidTranslation />
+        <LocaleText text={content} className='text-sm' avoidTranslation />
       </View>
       <View className='items-center justify-center'>
         <LocaleText
