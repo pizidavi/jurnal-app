@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { View } from 'react-native';
 import Button from '../component/common/Button';
 import LocaleText from '../component/common/LocaleText';
+import MarkdownView from '../component/common/Markdown';
 import Header from '../component/feature/Header';
 import BaseScreen from '../component/navigation/BaseScreen';
 import { db } from '../config/client';
@@ -38,7 +39,7 @@ function NoteScreen({ navigation, route }: NoteScreenProps) {
       ) : (
         <>
           <Header title={formatDate(note.createdAt)} avoidTranslation />
-          <LocaleText text={note.content} className='text-justify' avoidTranslation />
+          <MarkdownView markdown={note.content} />
         </>
       )}
     </BaseScreen>
