@@ -9,7 +9,7 @@ import italian from './it.json';
 const resources = {
   [LANGUAGE.EN]: english,
   [LANGUAGE.IT]: italian,
-} as const;
+} as const satisfies Record<LANGUAGE, typeof english & typeof italian>;
 
 void i18n.use(initReactI18next).init({
   compatibilityJSON: 'v4',

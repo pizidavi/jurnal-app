@@ -1,6 +1,4 @@
-import { eq } from 'drizzle-orm';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
-import { useMemo } from 'react';
 import { View } from 'react-native';
 import Button from '../component/common/Button';
 import LocaleText from '../component/common/LocaleText';
@@ -8,7 +6,6 @@ import MarkdownView from '../component/common/Markdown';
 import Header from '../component/feature/Header';
 import BaseScreen from '../component/navigation/BaseScreen';
 import { db } from '../config/client';
-import { notesTable } from '../database/schema';
 import type { NoteScreenProps } from '../type/navigation';
 import { formatDate } from '../util/formatter';
 
@@ -16,13 +13,12 @@ function NoteScreen({ navigation, route }: NoteScreenProps) {
   const { noteId } = route.params;
 
   // Global state
-  const { data, error } = useLiveQuery(
-    db.select().from(notesTable).where(eq(notesTable.id, noteId)),
+  const { data: note, error } = useLiveQuery(
+    db.query.notesTable.findFirst({
+      where: (notesTable, { eq }) => eq(notesTable.id, noteId),
+    }),
     [noteId],
   );
-
-  // Memo
-  const note = useMemo(() => data.at(0), [data]);
 
   // Render
   return (

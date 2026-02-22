@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
 import { View } from 'react-native';
+import { useResolveClassNames } from 'uniwind';
 import type { Note } from '../../database/schema';
 import { formatDate } from '../../util/formatter';
 import { clx } from '../../util/util';
 import LocaleText from '../common/LocaleText';
+import MarkdownView from '../common/Markdown';
 
 type NoteCardProps = {
   note: Note;
@@ -13,14 +14,18 @@ type NoteCardProps = {
 function NoteCard(props: NoteCardProps) {
   const { note, className } = props;
 
-  // Memo
-  const content = useMemo(() => note.content.slice(0, 200), [note.content]);
+  // Hook
+  const height = useResolveClassNames('h-52');
 
   // Render
   return (
     <View className={clx('gap-sm', className)}>
-      <View className='h-56 rounded bg-surface p-sm'>
-        <LocaleText text={content} className='text-sm' avoidTranslation />
+      <View className='rounded bg-surface p-sm'>
+        <MarkdownView
+          markdown={note.content}
+          textSize='sm'
+          style={[height, { overflow: 'hidden' }]}
+        />
       </View>
       <View className='items-center justify-center'>
         <LocaleText
