@@ -1,8 +1,12 @@
 {
-  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
+  "editor.formatOnSave": true,
+  "js/ts.preferences.preferTypeOnlyAutoImports": true,
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "js/ts.tsserver.experimental.enableProjectDiagnostics": true,
   "tailwindCSS.classAttributes": [
     "class",
     "className",
@@ -33,9 +37,5 @@
     "ListFooterComponentClassName",
     "ListHeaderComponentClassName"
   ],
-  "tailwindCSS.classFunctions": ["clx", "useResolveClassNames"],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.preferTypeOnlyAutoImports": true,
-  "typescript.tsserver.experimental.enableProjectDiagnostics": true
+  "tailwindCSS.classFunctions": ["clx", "useResolveClassNames"]
 }
