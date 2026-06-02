@@ -3,7 +3,7 @@ import { AudioRecorder, FileDirectory, FileFormat } from 'react-native-audio-api
 class AudioService {
   private readonly recorder: AudioRecorder = new AudioRecorder();
 
-  public startRecording() {
+  public async startRecording() {
     const timestamp = Date.now();
 
     this.recorder.enableFileOutput({

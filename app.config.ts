@@ -1,5 +1,7 @@
 import 'tsx/cjs';
+
 import type { ConfigContext, ExpoConfig } from 'expo/config';
+
 import { version } from './package.json';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';

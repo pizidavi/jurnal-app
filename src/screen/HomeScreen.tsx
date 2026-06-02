@@ -3,6 +3,7 @@ import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { ArrowDownIcon, ArrowUpRightIcon, SettingsIcon } from 'lucide-react-native';
 import { useCallback, useState } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
+
 import Icon from '../component/common/Icon';
 import LocaleText from '../component/common/LocaleText';
 import Header from '../component/feature/Header';
@@ -31,6 +32,10 @@ function HomeScreen({ navigation }: HomeScreenProps) {
   );
 
   // Callback
+  const handleEndReached = useCallback(() => {
+    if (notes.length < (notesCount.at(0)?.count ?? 0)) setPage(prev => prev + 1);
+  }, [notes, notesCount]);
+
   const renderItem = useCallback(
     ({ item }: { item: Note }) => (
       <Pressable
@@ -59,27 +64,30 @@ function HomeScreen({ navigation }: HomeScreenProps) {
         numColumns={2}
         contentContainerClassName='gap-base grow px-base pb-20'
         columnWrapperClassName='gap-base'
-        ListEmptyComponent={
-          <View className='flex-1 items-center justify-evenly px-base'>
-            <View className='items-center gap-base'>
-              <Icon icon={ArrowUpRightIcon} size={30} color='foreground' />
-              <LocaleText text='onboarding:1-setupModels' className='text-center text-h4' />
-            </View>
-            <View className='items-center gap-base'>
-              <LocaleText text='onboarding:2-pressButton' className='text-center text-h4' />
-              <Icon icon={ArrowDownIcon} size={30} color='foreground' />
-            </View>
-          </View>
-        }
-        onEndReached={() => {
-          if (notes.length < (notesCount.at(0)?.count ?? 0)) setPage(prev => prev + 1);
-        }}
+        ListEmptyComponent={ListEmpty}
+        onEndReached={handleEndReached}
         onEndReachedThreshold={0.5}
       />
       <View className='absolute right-0 bottom-6 left-0 flex items-center justify-center'>
         <RecordButton />
       </View>
     </BaseScreen>
+  );
+}
+
+function ListEmpty() {
+  // Render
+  return (
+    <View className='flex-1 items-center justify-evenly px-base'>
+      <View className='items-center gap-base'>
+        <Icon icon={ArrowUpRightIcon} size={30} color='foreground' />
+        <LocaleText text='onboarding:1-setupModels' className='text-center text-h4' />
+      </View>
+      <View className='items-center gap-base'>
+        <LocaleText text='onboarding:2-pressButton' className='text-center text-h4' />
+        <Icon icon={ArrowDownIcon} size={30} color='foreground' />
+      </View>
+    </View>
   );
 }
 

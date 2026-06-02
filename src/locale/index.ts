@@ -1,6 +1,7 @@
 import { getLocales } from 'expo-localization';
 import i18n, { type CustomTypeOptions, type ParseKeys } from 'i18next';
 import { initReactI18next } from 'react-i18next';
+
 import { LANGUAGE } from '../type/enum';
 import { appLog } from '../util/logger';
 import english from './en.json';

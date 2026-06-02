@@ -1,5 +1,6 @@
 import { View } from 'react-native';
 import { useResolveClassNames } from 'uniwind';
+
 import type { Note } from '../../database/schema';
 import { formatDate } from '../../util/formatter';
 import { clx } from '../../util/util';
@@ -22,7 +23,7 @@ function NoteCard(props: NoteCardProps) {
     <View className={clx('gap-sm', className)}>
       <View className='rounded bg-surface p-sm'>
         <MarkdownView
-          markdown={note.content}
+          content={note.content}
           textSize='sm'
           style={[height, { overflow: 'hidden' }]}
         />

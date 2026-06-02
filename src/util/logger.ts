@@ -1,9 +1,7 @@
-// Others
 import { consoleTransport, logger } from 'react-native-logs';
 
 const log = logger.createLogger({
   transport: consoleTransport,
-  enabledExtensions: ['API', 'APP', 'LLM'],
   severity: 'debug',
   transportOptions: {
     colors: {

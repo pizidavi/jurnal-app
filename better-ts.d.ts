@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable @typescript-eslint/no-duplicate-type-constituents, @typescript-eslint/consistent-type-definitions */
 
 interface Promise<T> extends PromiseLike<T> {
   /**

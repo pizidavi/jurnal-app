@@ -2,6 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 import { drizzle } from 'drizzle-orm/expo-sqlite';
 import EventEmitter from 'eventemitter3';
 import { openDatabaseSync } from 'expo-sqlite';
+
 import * as schema from '../database/schema';
 import AIService from '../service/ai/AIService';
 import AudioService from '../service/audio/AudioService';
@@ -15,6 +16,7 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 60 * 1000,
+      gcTime: 60 * 1000,
     },
   },
 });

@@ -2,6 +2,7 @@ import { MicIcon } from 'lucide-react-native';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import * as Permissions from 'react-native-permissions';
+
 import { aiService, eventEmitter } from '../../config/client';
 import { appLog } from '../../util/logger';
 import Icon from '../common/Icon';

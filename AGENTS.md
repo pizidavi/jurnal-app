@@ -4,11 +4,9 @@ React Native/Expo journaling app with TypeScript + TailwindCSS (via uniwind).
 
 ## Commands
 
-```bash
-yarn typecheck          # TypeScript validation
-yarn lint               # ESLint
-yarn format             # Prettier
-```
+- `yarn typecheck` - TypeScript validation
+- `yarn lint` - ESLint
+- `yarn format` - Prettier
 
 ## Architecture
 
@@ -49,8 +47,6 @@ Navigation (top-level container)
 ### Component Structure
 
 One component per file, default export. Use function declarations for components, arrow functions for utilities.
-
-**Hook order** (from `src/.github/instructions/component-architecture.md`):
 
 1. Hook (e.g., `useNavigation()`)
 2. Global state (Zustand)

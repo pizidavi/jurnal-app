@@ -1,6 +1,7 @@
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
 import { useEffect } from 'react';
 import { View } from 'react-native';
+
 import migrations from '../../../drizzle/migrations';
 import { db, expoDatabase } from '../../config/client';
 import { appLog } from '../../util/logger';

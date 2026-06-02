@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { TextInput as RNTextInput, type TextInputProps as RNTextInputProps } from 'react-native';
+
 import { clx } from '../../util/util';
 
 type TextInputProps = {

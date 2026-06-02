@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Pressable, View } from 'react-native';
+
 import Button from '../component/common/Button';
 import LocaleText from '../component/common/LocaleText';
 import TextInput from '../component/common/TextInput';

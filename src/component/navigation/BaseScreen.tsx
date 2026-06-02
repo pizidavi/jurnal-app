@@ -1,6 +1,7 @@
 import { type ReactNode, useMemo } from 'react';
 import { ScrollView, type ScrollViewProps, View, type ViewProps } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { clx } from '../../util/util';
 
 type BaseScreenProps<T extends 'view' | 'scroll'> = {

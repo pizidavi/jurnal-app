@@ -4,21 +4,23 @@ import type { StyleProp, ViewStyle } from 'react-native';
 import { useCSSVariable } from 'uniwind';
 
 type MarkdownViewProps = {
-  markdown: string;
+  content: string;
   textSize?: 'sm' | 'base';
   style?: StyleProp<ViewStyle>;
 };
 
 function MarkdownView(props: MarkdownViewProps) {
-  const { markdown, textSize = 'base', style } = props;
+  const { content, textSize = 'base', style } = props;
 
   // Hook
-  const variables = useCSSVariable(['--foreground', '--text-sm', '--text-base']);
+  const [colorForeground, textSm, textBase] = useCSSVariable([
+    '--foreground',
+    '--text-sm',
+    '--text-base',
+  ]);
 
   // Memo
   const markdownStyles = useMemo<StyleMap>(() => {
-    const [colorForeground, textSm, textBase] = variables;
-
     const foreground = colorForeground?.toString() ?? '#000';
     const textFontSize =
       textSize === 'sm' ? Number(textSm?.toString() ?? '14') : Number(textBase?.toString() ?? '16');
@@ -33,10 +35,10 @@ function MarkdownView(props: MarkdownViewProps) {
         color: foreground,
       },
     } satisfies StyleMap;
-  }, [textSize, style, variables]);
+  }, [textSize, style, colorForeground, textSm, textBase]);
 
   // Render
-  return <Markdown markdown={markdown} styles={markdownStyles} />;
+  return <Markdown markdown={content} styles={markdownStyles} />;
 }
 
 export default MarkdownView;

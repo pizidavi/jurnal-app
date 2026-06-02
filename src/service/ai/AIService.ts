@@ -4,6 +4,7 @@ import {
   SpeechToTextModule,
   WHISPER_SMALL,
 } from 'react-native-executorch';
+
 import { transcriptionLog } from '../../util/logger';
 
 class AIService {
@@ -18,27 +19,23 @@ class AIService {
     const decodedAudioData = await audioContext.decodeAudioData(fileUri);
     const audioBuffer = decodedAudioData.getChannelData(0);
 
-    const transcription = await (async (): Promise<string> => {
-      let retry = 0;
-      do {
-        try {
-          const result = await this.model.transcribe(audioBuffer, { language });
-          const _ = result
-            .trimEnd()
-            .replace(/\[\w+\]$/g, '') // Remove trailing [noise], [laughter], etc.
-            .trim();
-          if (_.length < 4) throw new Error('Transcription result is empty');
-          return _;
-        } catch (e) {
-          transcriptionLog.error(`Transcription attempt ${retry + 1} failed`, e);
-          retry++;
-          if (retry >= 3) throw new Error('Failed to transcribe audio after 3 attempts');
-        }
-        // eslint-disable-next-line no-constant-condition, @typescript-eslint/no-unnecessary-condition
-      } while (true);
-    })();
-
-    return transcription;
+    let retry = 0;
+    do {
+      try {
+        const result = await this.model.transcribe(audioBuffer, { language });
+        const _ = result
+          .trimEnd()
+          .replace(/\[\w+\]$/g, '') // Remove trailing [noise], [laughter], etc.
+          .trim();
+        if (_.length < 4) throw new Error('Transcription result is empty');
+        return _;
+      } catch (e) {
+        transcriptionLog.error(`Transcription attempt ${retry + 1} failed`, e);
+        retry++;
+        if (retry >= 3) throw new Error(`Failed to transcribe audio after ${retry} attempts`);
+      }
+      // eslint-disable-next-line no-constant-condition, @typescript-eslint/no-unnecessary-condition
+    } while (true);
   }
 }
 

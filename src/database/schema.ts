@@ -12,6 +12,5 @@ export const notesTable = sqliteTable('notes', {
     .$onUpdateFn(() => Date.now()),
 });
 
-// Export Note to use as an interface in your app
 export type Note = typeof notesTable.$inferSelect;
 export type NewNote = typeof notesTable.$inferInsert;

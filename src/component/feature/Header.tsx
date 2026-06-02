@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { ArrowLeftIcon, type LucideIcon } from 'lucide-react-native';
 import { View } from 'react-native';
+
 import { clx } from '../../util/util';
 import Icon from '../common/Icon';
 import LocaleText, { type LocaleTextProps } from '../common/LocaleText';

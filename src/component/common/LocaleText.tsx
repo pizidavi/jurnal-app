@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Text, type TextProps } from 'react-native';
+
 import { type Dictionary } from '../../locale';
 import { clx } from '../../util/util';
 
@@ -51,7 +52,8 @@ function LocaleText<T extends boolean = false>(props: LocaleTextProps<T>) {
     <BaseText>{text}</BaseText>
   ) : (
     <Trans
-      i18nKey={text.toString() as any}
+      //@ts-expect-error this accept string
+      i18nKey={text.toString()}
       values={translatedValues}
       components={components}
       parent={BaseText}

@@ -1,12 +1,12 @@
 // @ts-check
 import eslint from '@eslint/js';
 import { defineConfig } from 'eslint/config';
-import tseslint from 'typescript-eslint';
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 // @ts-expect-error missing types
 import reactNative from 'eslint-plugin-react-native';
-import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
-import importPlugin from 'eslint-plugin-import';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig(
   {
@@ -16,7 +16,8 @@ export default defineConfig(
       'android/*',
       'ios/*',
       'web-build/*',
-      '*.config.js',
+      'drizzle/*',
+      '*.config.*js',
       'uniwind-types.d.ts',
     ],
   },
@@ -34,7 +35,7 @@ export default defineConfig(
   {
     plugins: {
       react,
-      reactNative,
+      'react-native': reactNative,
     },
     settings: {
       react: {
@@ -45,33 +46,11 @@ export default defineConfig(
   {
     files: ['src/**/*.{ts,tsx}'],
     plugins: {
-      import: importPlugin,
-    },
-    settings: {
-      'import/resolver': {
-        typescript: true,
-        node: true,
-      },
+      'simple-import-sort': simpleImportSort,
     },
     rules: {
-      ...importPlugin.flatConfigs.recommended.rules,
-      ...importPlugin.flatConfigs.typescript.rules,
-      'import/order': [
-        'error',
-        {
-          alphabetize: {
-            order: 'asc',
-            orderImportKind: 'asc',
-          },
-          distinctGroup: false,
-          named: true,
-          'newlines-between': 'never',
-        },
-      ],
-      'import/first': 'error',
-      'import/named': 'off',
-      'import/no-named-as-default-member': 'off',
-      'import/no-named-as-default': 'off',
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
     },
   },
   {
@@ -137,7 +116,7 @@ export default defineConfig(
       'react/self-closing-comp': 'error',
       'react-hooks/exhaustive-deps': 'off',
       'react-native/no-inline-styles': 'off',
-      'react-native/no-unused-styles': 'off',
+      'react-native/no-unused-styles': 'error',
       'react-native/no-raw-text': 'off',
       'react-native/split-platform-components': 'off',
     },

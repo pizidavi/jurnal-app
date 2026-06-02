@@ -1,5 +1,6 @@
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { View } from 'react-native';
+
 import Button from '../component/common/Button';
 import LocaleText from '../component/common/LocaleText';
 import MarkdownView from '../component/common/Markdown';
@@ -35,7 +36,7 @@ function NoteScreen({ navigation, route }: NoteScreenProps) {
       ) : (
         <>
           <Header title={formatDate(note.createdAt)} avoidTranslation />
-          <MarkdownView markdown={note.content} />
+          <MarkdownView content={note.content} />
         </>
       )}
     </BaseScreen>

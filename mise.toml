@@ -1,4 +1,4 @@
 [tools]
-node = "22"
-"npm:eas-cli" = "16"
+node = "24"
+"npm:eas-cli" = "20"
 yarn = "1.22.22"

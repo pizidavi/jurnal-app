@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Modal, View } from 'react-native';
 import type { SpeechToTextLanguage } from 'react-native-executorch';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { aiService, audioService, db, eventEmitter, llmService } from '../../config/client';
 import { notesTable } from '../../database/schema';
 import i18n from '../../locale';

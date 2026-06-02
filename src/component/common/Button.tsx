@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react-native';
 import { useMemo } from 'react';
 import { ActivityIndicator, Pressable, View } from 'react-native';
 import { useCSSVariable } from 'uniwind';
+
 import type { Dictionary } from '../../locale';
 import { clx } from '../../util/util';
 import LocaleText from './LocaleText';

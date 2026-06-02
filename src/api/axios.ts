@@ -1,4 +1,5 @@
 import axios, { AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
+
 import { apiLog } from '../util/logger';
 
 const axiosClient = axios.create({
