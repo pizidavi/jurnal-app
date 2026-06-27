@@ -16,7 +16,7 @@ import LocaleText from '../common/LocaleText';
 const createNote = async (path: string) => {
   // Create note
   const [note] = await db.insert(notesTable).values({ content: '' }).returning();
-  appLog.debug('Note created', { noteId: note.id });
+  appLog.info('Note created', { noteId: note.id });
 
   // Transcribe audio
   const transcription = await aiService
@@ -27,12 +27,12 @@ const createNote = async (path: string) => {
       throw e; // Rethrow to be caught by caller and show error toast
     });
   await db.update(notesTable).set({ content: transcription }).where(eq(notesTable.id, note.id));
-  appLog.debug('Note transcribed', { noteId: note.id });
+  appLog.info('Note transcribed', { noteId: note.id });
 
   // Enrich note
   const enrichedContent = await llmService.enrichTranscription(transcription);
   await db.update(notesTable).set({ content: enrichedContent }).where(eq(notesTable.id, note.id));
-  appLog.debug('Note enriched', { noteId: note.id });
+  appLog.info('Note enriched', { noteId: note.id });
 };
 
 function NoteModal() {
@@ -65,7 +65,7 @@ function NoteModal() {
           return;
         }
 
-        await createNote(result.path);
+        return createNote(result.paths[0]);
       })
       .catch((e: unknown) => {
         appLog.error('Failed to stop recording', e);

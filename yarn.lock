@@ -6938,22 +6938,27 @@ react-is@^19.1.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-19.2.4.tgz#a080758243c572ccd4a63386537654298c99d135"
   integrity sha512-W+EWGn2v0ApPKgKKCy/7s7WHXkboGcsrXE+2joLyVxkbyVQfO3MUEaUQDHoSmb8TFFrSKYa9mw64WZHNHSDzYA==
 
-react-native-audio-api@^0.11.4:
-  version "0.11.4"
-  resolved "https://registry.yarnpkg.com/react-native-audio-api/-/react-native-audio-api-0.11.4.tgz#0c55fb830def52fb8733b96dbae73669c4b4d76d"
-  integrity sha512-fBGkJEZncuOEM5xryjCVKd3tEBdMDn3qZoFrx2VSFzfXWBBt6XMWUxx5bahdVsOe0JUFWkkQwrXXqLywblzk9w==
+react-native-audio-api@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/react-native-audio-api/-/react-native-audio-api-0.12.2.tgz#e64389104254c753197dcc8ce8b1243ffe97313e"
+  integrity sha512-OizgzmolTzCwgMlNv8eyRTh888up6mmS158O1+h9M8dHE4dTSZjjT0622zDJ+Z58trEyYHRcOJP9evBMTzm4UQ==
   dependencies:
     semver "^7.7.3"
 
-react-native-executorch@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/react-native-executorch/-/react-native-executorch-0.7.1.tgz#3045cc9eadf6d3eda37c1df455ade136bd4e311f"
-  integrity sha512-FV0pDufc2mWz6ksnZdj+G9FbTf8Vp0kpnHvXIsxQo3tJ+Oc8TblQobrskxAgnh6GTsXKTUtv5KMBIF+jDZCl3g==
+react-native-executorch-expo-resource-fetcher@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/react-native-executorch-expo-resource-fetcher/-/react-native-executorch-expo-resource-fetcher-0.9.1.tgz#f6a9f25823442d66178fcf1a2f40efada603bcab"
+  integrity sha512-ypHCH0ushkeExdVSJAPMBJLDx7rWl7WAN1oInznfLUwlVsDNXWQB8nNhD3UGvrHk4ajcp1/OWcwO7GIhWOghsg==
+
+react-native-executorch@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/react-native-executorch/-/react-native-executorch-0.9.2.tgz#d7132b0140c547c58660dcec445a9894d9a69813"
+  integrity sha512-pZ2CbVPlze342GLic4UMTnMDuglgTjHBcaKLCjGTXGTStrscqtPptoZzx7brgJtwwu7IHRz3iF0mk2a7vsKLQg==
   dependencies:
     "@huggingface/jinja" "^0.5.0"
     jsonrepair "^3.12.0"
     jsonschema "^1.5.0"
-    zod "^3.25.0"
+    zod "^4.3.6"
 
 react-native-gesture-handler@~2.28.0:
   version "2.28.0"
@@ -8412,10 +8417,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zod@^3.25.0:
-  version "3.25.76"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-3.25.76.tgz#26841c3f6fd22a6a2760e7ccb719179768471e34"
-  integrity sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==
+zod@^4.3.6:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-4.4.3.tgz#b680f172885d18bbebf21a834ea25e55a1bbf356"
+  integrity sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==
 
 zustand@^5.0.14:
   version "5.0.14"
