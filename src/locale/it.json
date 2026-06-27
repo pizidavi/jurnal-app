@@ -18,6 +18,12 @@
   "note": {
     "notFound": "Nota non trovata"
   },
+  "notification": {
+    "noteProcessingChannelName": "Elaborazione note",
+    "noteProcessingChannelDescription": "Notifiche per l'elaborazione delle note",
+    "noteProcessingTitle": "Elaborazione nota...",
+    "noteProcessingBody": "Trascrizione e rifinitura della registrazione"
+  },
   "onboarding": {
     "1-setupModels": "Configura i modelli AI",
     "2-pressButton": "Premi il pulsante in basso per iniziare!"

@@ -7,3 +7,7 @@ export type LLMConfig = {
   apiKey: string;
   baseURL: string;
 };
+
+export type NoteProcessingNotificationData = {
+  path: string;
+};

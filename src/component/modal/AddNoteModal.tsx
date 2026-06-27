@@ -1,41 +1,19 @@
-import { eq } from 'drizzle-orm';
 import { CircleStopIcon } from 'lucide-react-native';
 import { useCallback, useEffect, useState } from 'react';
-import { Modal, View } from 'react-native';
-import type { SpeechToTextLanguage } from 'react-native-executorch';
+import { Modal, Platform, View } from 'react-native';
+import notifee, { AndroidForegroundServiceType } from 'react-native-notify-kit';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { aiService, audioService, db, eventEmitter, llmService } from '../../config/client';
-import { notesTable } from '../../database/schema';
+import { audioService, eventEmitter } from '../../config/client';
 import i18n from '../../locale';
+import { NOTIFICATION_CHANNEL } from '../../type/enum';
+import type { NoteProcessingNotificationData } from '../../type/struct';
 import { appLog } from '../../util/logger';
 import ActivityIndicator from '../common/ActivityIndicator';
 import Icon from '../common/Icon';
 import LocaleText from '../common/LocaleText';
 
-const createNote = async (path: string) => {
-  // Create note
-  const [note] = await db.insert(notesTable).values({ content: '' }).returning();
-  appLog.info('Note created', { noteId: note.id });
-
-  // Transcribe audio
-  const transcription = await aiService
-    .transcribeAudio(path, i18n.language as SpeechToTextLanguage)
-    .catch(async e => {
-      appLog.error('Failed to transcribe audio', e);
-      await db.delete(notesTable).where(eq(notesTable.id, note.id)); // Clean up the empty note
-      throw e; // Rethrow to be caught by caller and show error toast
-    });
-  await db.update(notesTable).set({ content: transcription }).where(eq(notesTable.id, note.id));
-  appLog.info('Note transcribed', { noteId: note.id });
-
-  // Enrich note
-  const enrichedContent = await llmService.enrichTranscription(transcription);
-  await db.update(notesTable).set({ content: enrichedContent }).where(eq(notesTable.id, note.id));
-  appLog.info('Note enriched', { noteId: note.id });
-};
-
-function NoteModal() {
+function AddNoteModal() {
   // Hook
   const { top, bottom } = useSafeAreaInsets();
 
@@ -56,7 +34,7 @@ function NoteModal() {
   const stopRecording = useCallback(() => {
     audioService
       .stopRecording()
-      .then(async result => {
+      .then(result => {
         appLog.debug('Recording stopped, file saved', result);
 
         if (result.duration < 2) {
@@ -65,7 +43,26 @@ function NoteModal() {
           return;
         }
 
-        return createNote(result.paths[0]);
+        // Start the foreground service to handle transcription
+        return notifee.displayNotification({
+          id: NOTIFICATION_CHANNEL.NOTE_PROCESSING,
+          title: i18n.t('notification:noteProcessingTitle'),
+          body: i18n.t('notification:noteProcessingBody'),
+          data: {
+            path: result.paths[0],
+          } satisfies NoteProcessingNotificationData,
+          android: {
+            channelId: NOTIFICATION_CHANNEL.NOTE_PROCESSING,
+            asForegroundService: true,
+            foregroundServiceTypes: [
+              AndroidForegroundServiceType.FOREGROUND_SERVICE_TYPE_DATA_SYNC,
+            ],
+            ongoing: true,
+            progress: {
+              indeterminate: true,
+            },
+          },
+        });
       })
       .catch((e: unknown) => {
         appLog.error('Failed to stop recording', e);
@@ -97,7 +94,7 @@ function NoteModal() {
       visible={isVisible}
       onRequestClose={closeModal}
       allowSwipeDismissal
-      animationType='fade'
+      animationType={Platform.OS === 'ios' ? 'slide' : 'fade'}
       transparent
     >
       <View
@@ -122,4 +119,4 @@ function NoteModal() {
   );
 }
 
-export default NoteModal;
+export default AddNoteModal;

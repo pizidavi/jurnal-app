@@ -23,15 +23,45 @@ function RecordButton() {
 
     Promise.resolve()
       .then(async () => {
-        let status = await Permissions.check(Permissions.PERMISSIONS.ANDROID.RECORD_AUDIO);
-        if (status === Permissions.RESULTS.BLOCKED) return;
+        // Check microphone permission
+        let microphoneStatus = await Permissions.check(
+          Permissions.PERMISSIONS.ANDROID.RECORD_AUDIO,
+        );
+        if (microphoneStatus === Permissions.RESULTS.BLOCKED)
+          throw new Error('Microphone permission is blocked');
 
-        if (status !== Permissions.RESULTS.GRANTED && status !== Permissions.RESULTS.UNAVAILABLE)
-          status = await Permissions.request(Permissions.PERMISSIONS.ANDROID.RECORD_AUDIO);
+        if (
+          microphoneStatus !== Permissions.RESULTS.GRANTED &&
+          microphoneStatus !== Permissions.RESULTS.UNAVAILABLE
+        )
+          microphoneStatus = await Permissions.request(
+            Permissions.PERMISSIONS.ANDROID.RECORD_AUDIO,
+          );
 
-        if (status !== Permissions.RESULTS.GRANTED && status !== Permissions.RESULTS.UNAVAILABLE)
-          return;
+        if (
+          microphoneStatus !== Permissions.RESULTS.GRANTED &&
+          microphoneStatus !== Permissions.RESULTS.UNAVAILABLE
+        )
+          throw new Error('Microphone permission is blocked');
 
+        // Check notification permission
+        let notificationStatus = await Permissions.checkNotifications();
+        if (notificationStatus.status === Permissions.RESULTS.BLOCKED)
+          throw new Error('Notification permission is blocked');
+
+        if (
+          notificationStatus.status !== Permissions.RESULTS.GRANTED &&
+          notificationStatus.status !== Permissions.RESULTS.UNAVAILABLE
+        )
+          notificationStatus = await Permissions.requestNotifications();
+
+        if (
+          notificationStatus.status !== Permissions.RESULTS.GRANTED &&
+          notificationStatus.status !== Permissions.RESULTS.UNAVAILABLE
+        )
+          throw new Error('Notification permission is blocked');
+
+        // Open the note modal
         eventEmitter.emit('note-modal:show');
       })
       .catch(e => {

@@ -18,6 +18,12 @@
   "note": {
     "notFound": "Note not found"
   },
+  "notification": {
+    "noteProcessingChannelName": "Note Processing",
+    "noteProcessingChannelDescription": "Notifications for note processing",
+    "noteProcessingTitle": "Processing note...",
+    "noteProcessingBody": "Transcribing and refining your recording"
+  },
   "onboarding": {
     "1-setupModels": "Set up AI models",
     "2-pressButton": "Press the button below to get started!"

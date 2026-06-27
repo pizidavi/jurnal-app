@@ -12,9 +12,8 @@ const log = logger.createLogger({
   },
 });
 
-const apiLog = log.extend('API');
-const appLog = log.extend('APP');
-const llmLog = log.extend('LLM');
-const transcriptionLog = log.extend('TRANSCRIPTION');
-
-export { apiLog, appLog, llmLog, transcriptionLog };
+export const apiLog = log.extend('API');
+export const appLog = log.extend('APP');
+export const serviceLog = log.extend('SERVICE');
+export const llmLog = log.extend('LLM');
+export const transcriptionLog = log.extend('TRANSCRIPTION');
