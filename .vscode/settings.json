@@ -1,4 +1,9 @@
 {
+  "chat.tools.edits.autoApprove": {
+    "**/android/**": false,
+    "**/drizzle/**": false,
+    "**/ios/**": false
+  },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
