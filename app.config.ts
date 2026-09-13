@@ -1,3 +1,4 @@
+/* eslint-disable no-process-env */
 import 'tsx/cjs';
 
 import type { ConfigContext, ExpoConfig } from 'expo/config';
@@ -36,6 +37,8 @@ function getPackageName(packageName: string | undefined) {
 
 function getPlugins(plugins: (string | [] | [string] | [string, any])[] | undefined) {
   plugins ??= [];
+
+  plugins.push('./plugins/whisper.rn');
 
   if (NODE_ENV === 'development')
     plugins.push([

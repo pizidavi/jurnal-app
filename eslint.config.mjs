@@ -55,10 +55,11 @@ export default defineConfig(
   },
   {
     rules: {
-      'no-console': 'error',
       'default-param-last': 'off',
-      'no-unsafe-optional-chaining': 'off',
+      'no-console': 'error',
+      'no-process-env': 'error',
       'no-template-curly-in-string': 'error',
+      'no-unsafe-optional-chaining': 'off',
       '@typescript-eslint/array-type': 'error',
       '@typescript-eslint/ban-ts-comment': 'off',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],

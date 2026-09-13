@@ -19,9 +19,9 @@
     "notFound": "Nota non trovata"
   },
   "notification": {
-    "noteProcessingChannelName": "Elaborazione note",
-    "noteProcessingChannelDescription": "Notifiche per l'elaborazione delle note",
-    "noteProcessingTitle": "Elaborazione nota...",
+    "noteProcessingChannelName": "Trascrizione in corso",
+    "noteProcessingChannelDescription": "Notifiche per la trascrizione delle note",
+    "noteProcessingTitle": "Trascrizione in corso",
     "noteProcessingBody": "Trascrizione e rifinitura della registrazione"
   },
   "onboarding": {

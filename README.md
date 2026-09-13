@@ -37,7 +37,7 @@ An example `.env.sample` file can be found inside the repository.
 npx expo prebuild
 ```
 
-This app uses custom native code (e.g. on-device Whisper via `react-native-executorch`), so an [Expo Development Build](https://docs.expo.dev/develop/development-builds/introduction/) is required.
+This app uses custom native code (e.g. on-device Whisper via `whisper.rn`), so an [Expo Development Build](https://docs.expo.dev/develop/development-builds/introduction/) is required.
 
 ### Start application
 
@@ -48,7 +48,7 @@ yarn dev
 ## How it works (high level)
 
 1. Record audio in-app
-2. Transcribe locally using a Whisper model (via `react-native-executorch`)
+2. Transcribe locally using a Whisper model (via `whisper.rn`)
 3. Enrich the transcription via an LLM into a readable, structured Markdown note
 4. Persist notes locally (SQLite via Drizzle)
 

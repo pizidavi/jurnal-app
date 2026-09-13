@@ -1,6 +1,6 @@
 # Jurnal - Copilot Instructions
 
-React Native/Expo journaling app with TypeScript + TailwindCSS (via uniwind).
+React Native/Expo voice journaling app with TypeScript + TailwindCSS via Uniwind
 
 ## Commands
 
@@ -30,6 +30,8 @@ React Native/Expo journaling app with TypeScript + TailwindCSS (via uniwind).
 
 One component per file, default export. Use function declarations for components, arrow functions for utilities.
 
+Component structure order:
+
 1. Hook (e.g., `useNavigation()`)
 2. Global state (Zustand)
 3. State (`useState`)
@@ -41,6 +43,8 @@ One component per file, default export. Use function declarations for components
 9. Method (plain functions)
 10. Effect (`useEffect`)
 11. Render
+
+Add a comment above each section with the section name.
 
 ### Styling
 

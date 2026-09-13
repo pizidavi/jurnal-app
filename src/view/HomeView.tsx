@@ -14,7 +14,6 @@ function HomeView() {
       initialRouteName='Home'
       screenOptions={{
         headerShown: false,
-        freezeOnBlur: true,
       }}
     >
       <Stack.Screen name='Home' component={HomeScreen} />

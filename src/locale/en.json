@@ -19,10 +19,10 @@
     "notFound": "Note not found"
   },
   "notification": {
-    "noteProcessingChannelName": "Note Processing",
-    "noteProcessingChannelDescription": "Notifications for note processing",
-    "noteProcessingTitle": "Processing note...",
-    "noteProcessingBody": "Transcribing and refining your recording"
+    "noteProcessingChannelName": "Note transcription",
+    "noteProcessingChannelDescription": "Notifications for note transcription",
+    "noteProcessingTitle": "Transcribing note",
+    "noteProcessingBody": "Transcribing and enhancing your recording"
   },
   "onboarding": {
     "1-setupModels": "Set up AI models",
