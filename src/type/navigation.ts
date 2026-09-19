@@ -8,7 +8,6 @@ export type HomeStackParamList = {
   Home: undefined;
   Note: { noteId: number };
   Settings: undefined;
-  TranscriptionModels: undefined;
 };
 
 export type AppRoute = Route<keyof HomeStackParamList>;
@@ -16,8 +15,3 @@ export type AppNavigationProp = NativeStackNavigationProp<HomeStackParamList>;
 
 export type HomeScreenProps = NativeStackScreenProps<HomeStackParamList, 'Home'>;
 export type NoteScreenProps = NativeStackScreenProps<HomeStackParamList, 'Note'>;
-export type SettingsScreenProps = NativeStackScreenProps<HomeStackParamList, 'Settings'>;
-export type TranscriptionModelsScreenProps = NativeStackScreenProps<
-  HomeStackParamList,
-  'TranscriptionModels'
->;

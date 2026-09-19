@@ -6,6 +6,7 @@ import {
 } from '@gorhom/bottom-sheet';
 import type { ForwardedRef, ReactNode } from 'react';
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useCSSVariable } from 'uniwind';
 
 export type BottomSheetRef = {
@@ -38,6 +39,7 @@ function BottomSheet(props: BottomSheetProps, ref: ForwardedRef<BottomSheetRef>)
   } = props;
 
   // Hook
+  const { top } = useSafeAreaInsets();
   const [background, mutedForeground] = useCSSVariable(['--background', '--muted-foreground']);
 
   // Reference
@@ -88,6 +90,7 @@ function BottomSheet(props: BottomSheetProps, ref: ForwardedRef<BottomSheetRef>)
       onChange={handleChange}
       onDismiss={handleDismiss}
       backdropComponent={backdropComponent}
+      topInset={top}
       handleIndicatorStyle={[
         { backgroundColor: mutedForeground?.toString() },
         handleIndicatorStyle,

@@ -10,6 +10,7 @@
     "hello": "Ciao!",
     "llmProvider": "LLM Provider",
     "no": "No",
+    "notSet": "Non impostato",
     "record": "Registra",
     "recording": "Registrazione in corso",
     "save": "Salva",

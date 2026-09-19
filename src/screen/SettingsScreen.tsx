@@ -1,30 +1,50 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import Header from '../component/feature/Header';
-import SettingRow from '../component/feature/SettingRow';
+import ModelCard from '../component/feature/ModelCard';
+import SelectSheet from '../component/modal/SelectSheet';
 import BaseScreen from '../component/navigation/BaseScreen';
 import { useSettingsStore } from '../store/store';
-import type { SettingsScreenProps } from '../type/navigation';
-import { getModelById } from '../util/model';
+import type { Model } from '../type/entity';
+import { getModelById, MODELS } from '../util/model';
 
-function SettingsScreen({ navigation }: SettingsScreenProps) {
+function SettingsScreen() {
   // Global state
-  const selectedModelId = useSettingsStore(state => state.transcriptionModelId);
+  const transcriptionModelId = useSettingsStore(state => state.transcriptionModelId);
 
   // Memo
-  const selectedModelName = useMemo(
-    () => (selectedModelId ? (getModelById(selectedModelId)?.name ?? '-') : '-'),
-    [selectedModelId],
+  const selectedModel = useMemo(
+    () => (transcriptionModelId ? getModelById(transcriptionModelId) : undefined),
+    [transcriptionModelId],
+  );
+
+  // Callback
+  const renderModel = useCallback(
+    (model: Model, isSelected: boolean, select: () => void) => (
+      <ModelCard model={model} selected={isSelected} onSelect={select} />
+    ),
+    [],
+  );
+
+  const handleSelect = useCallback(
+    (model: Model) => useSettingsStore.getState().setTranscriptionModelId(model.id),
+    [],
   );
 
   // Render
   return (
     <BaseScreen className='gap-base'>
       <Header title='general:settings' />
-      <SettingRow
+      <SelectSheet.Select
         label='settings:transcriptionModel'
-        value={selectedModelName}
-        onPress={() => navigation.navigate('TranscriptionModels')}
+        placeholder='general:notSet'
+        title='settings:models'
+        options={MODELS}
+        selected={selectedModel}
+        keyExtractor={model => model.id}
+        getOptionLabel={model => model.name}
+        renderItem={renderModel}
+        onSelect={handleSelect}
       />
     </BaseScreen>
   );

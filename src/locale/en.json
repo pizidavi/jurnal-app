@@ -10,6 +10,7 @@
     "hello": "Hello!",
     "llmProvider": "LLM Provider",
     "no": "No",
+    "notSet": "Not set",
     "record": "Record",
     "recording": "Recording",
     "save": "Save",

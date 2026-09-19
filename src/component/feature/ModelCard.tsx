@@ -2,7 +2,7 @@ import { CircleCheckIcon, DownloadIcon, TrashIcon, TriangleAlertIcon } from 'luc
 import { useCallback, useMemo, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { useModelDownloadStore, useSettingsStore } from '../../store/store';
+import { useModelDownloadStore } from '../../store/store';
 import type { Model } from '../../type/entity';
 import { showAlert } from '../../util/alert';
 import { formatBytes } from '../../util/formatter';
@@ -16,20 +16,20 @@ type ModelCardStatus = 'not-downloaded' | 'downloading' | 'downloaded' | 'select
 
 type ModelCardProps = {
   model: Model;
+  selected?: boolean;
+  onSelect?: () => void;
 };
 
 function ModelCard(props: ModelCardProps) {
-  const { model } = props;
+  const { model, selected = false, onSelect } = props;
 
   // Global state
   const download = useModelDownloadStore(state => state.downloads[model.id]);
-  const selectedTranscriptionModelId = useSettingsStore(state => state.transcriptionModelId);
 
   // State
   const [updater, setUpdater] = useState<number>(0);
 
   // Memo
-  const selected = selectedTranscriptionModelId === model.id;
   const downloading = download !== undefined;
 
   const diskStatus = useMemo(() => getDownloadStatus(model), [updater, model, download]);
@@ -58,7 +58,7 @@ function ModelCard(props: ModelCardProps) {
       return;
     }
     if (diskStatus === 'downloaded') {
-      useSettingsStore.getState().setTranscriptionModelId(model.id);
+      onSelect?.();
       return;
     }
     void downloadModel(model);
