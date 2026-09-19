@@ -7,14 +7,19 @@ import { appLog } from '../util/logger';
 import english from './en.json';
 import italian from './it.json';
 
-const resources = {
+const LANGUAGE_NAMES = {
+  [LANGUAGE.EN]: 'English',
+  [LANGUAGE.IT]: 'Italiano',
+} as const satisfies Record<LANGUAGE, string>;
+
+const RESOURCES = {
   [LANGUAGE.EN]: english,
   [LANGUAGE.IT]: italian,
 } as const satisfies Record<LANGUAGE, typeof english & typeof italian>;
 
 void i18n.use(initReactI18next).init({
   compatibilityJSON: 'v4',
-  resources,
+  resources: RESOURCES,
   lng: LANGUAGE.EN,
   keySeparator: false,
   interpolation: {
@@ -37,11 +42,15 @@ if (isLanguageAvailable(languageCode) && languageCode !== i18n.language) {
 declare module 'i18next' {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface CustomTypeOptions {
-    resources: typeof resources;
+    resources: typeof RESOURCES;
     keySeparator: ':';
   }
 }
 
 export type Dictionary = ParseKeys<keyof CustomTypeOptions['resources']> | TemplateStringsArray;
+
+export const LANGUAGES = Object.values(LANGUAGE);
+
+export const getLanguageName = (language: LANGUAGE) => LANGUAGE_NAMES[language];
 
 export default i18n;

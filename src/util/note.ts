@@ -2,7 +2,6 @@ import { initWhisper } from 'whisper.rn/index';
 
 import { db } from '../config/client';
 import { notesTable } from '../database/schema';
-import i18n from '../locale';
 import { useSettingsStore } from '../store/store';
 import { appLog } from './logger';
 import { getModelById, getModelFilename } from './model';
@@ -10,6 +9,7 @@ import { getModelById, getModelFilename } from './model';
 export const processNote = async (path: string): Promise<void> => {
   appLog.debug('Processing note', { path });
 
+  const transcriptionLanguage = useSettingsStore.getState().transcriptionLanguage;
   const transcriptionModelId = useSettingsStore.getState().transcriptionModelId;
   if (!transcriptionModelId) {
     throw new Error('Transcription model ID is not set in the store');
@@ -27,16 +27,21 @@ export const processNote = async (path: string): Promise<void> => {
   });
 
   const { promise } = context.transcribe(path, {
-    language: i18n.language,
+    language: transcriptionLanguage,
   });
-  const { result, segments, language } = await promise;
-  appLog.info('note.ts (12) # result', result);
-  appLog.info('note.ts (12) # segments', segments);
-  appLog.info('note.ts (12) # language', language);
+  const { result, language } = await promise;
+  appLog.debug('Transcription completed', { path, language });
 
-  await context.release();
-
-  await db.insert(notesTable).values({
-    content: result,
+  await context.release().catch(error => {
+    appLog.warn('Error releasing Whisper context', { error });
   });
+
+  const [{ id }] = await db
+    .insert(notesTable)
+    .values({
+      content: result,
+    })
+    .returning({ id: notesTable.id });
+
+  appLog.info('Note saved to database', { path, id });
 };

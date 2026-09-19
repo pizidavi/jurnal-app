@@ -36,7 +36,9 @@
     "2-pressButton": "Premi il pulsante in basso per iniziare!"
   },
   "settings": {
+    "language": "Lingua",
     "models": "Modelli",
+    "transcriptionLanguage": "Lingua di trascrizione",
     "transcriptionModel": "Modello di trascrizione"
   }
 }

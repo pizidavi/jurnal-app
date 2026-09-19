@@ -46,7 +46,9 @@ export const downloadModel = async (model: Model) => {
 
   let result: 'downloaded' | 'degraded' | 'error';
   try {
+    appLog.debug(`Downloading transcription model ${model.id} from ${model.url}`);
     await File.downloadFileAsync(model.url, file, { idempotent: true });
+    appLog.debug(`Downloaded transcription model ${model.id} to ${file.uri}`);
     result = file.size === model.size ? 'downloaded' : 'degraded';
   } catch (e) {
     appLog.error(`Failed to download transcription model ${model.id}`, e);
@@ -68,5 +70,6 @@ export const deleteModel = (model: Model) => {
 
   const file = getModelFilename(model);
   if (file.exists) file.delete();
+  appLog.debug(`Deleted transcription model ${model.id}`);
   removeDownload(model.id);
 };
