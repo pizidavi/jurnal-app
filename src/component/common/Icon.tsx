@@ -12,6 +12,10 @@ type IconProps = {
   disabled?: boolean;
 };
 
+/**
+ * Icon component
+ * @param props
+ */
 function Icon(props: IconProps) {
   const {
     icon: IconComponent,

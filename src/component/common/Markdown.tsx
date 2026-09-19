@@ -9,6 +9,10 @@ type MarkdownViewProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+/**
+ * MarkdownView component
+ * @param props
+ */
 function MarkdownView(props: MarkdownViewProps) {
   const { content, textSize = 'base', style } = props;
 

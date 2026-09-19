@@ -7,6 +7,10 @@ type ActivityIndicatorProps = {
   color?: 'primary' | 'primary-foreground';
 };
 
+/**
+ * ActivityIndicator component
+ * @param props
+ */
 function ActivityIndicator(props: ActivityIndicatorProps) {
   const { color = 'primary', ...rest } = props;
 

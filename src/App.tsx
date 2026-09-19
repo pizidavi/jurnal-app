@@ -1,5 +1,6 @@
 import './global.css';
 
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
@@ -90,9 +91,11 @@ function Providers() {
         <SQLiteProvider>
           <StatusBar translucent backgroundColor='transparent' />
           <SafeAreaListener onChange={({ insets }) => Uniwind.updateInsets(insets)}>
-            <SafeAreaView edges={['left', 'right']} style={styles.main}>
-              <App />
-            </SafeAreaView>
+            <BottomSheetModalProvider>
+              <SafeAreaView edges={['left', 'right']} style={styles.main}>
+                <App />
+              </SafeAreaView>
+            </BottomSheetModalProvider>
           </SafeAreaListener>
         </SQLiteProvider>
       </SafeAreaProvider>
