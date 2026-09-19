@@ -1,0 +1,79 @@
+[
+  {
+    "id": "tiny",
+    "name": "Tiny",
+    "fileName": "ggml-tiny.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin",
+    "size": 77691713
+  },
+  {
+    "id": "tiny-q5_1",
+    "name": "Tiny Q5_1",
+    "fileName": "ggml-tiny-q5_1.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny-q5_1.bin",
+    "size": 32152673
+  },
+  {
+    "id": "base",
+    "name": "Base",
+    "fileName": "ggml-base.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin",
+    "size": 147951465
+  },
+  {
+    "id": "base-q5_1",
+    "name": "Base Q5_1",
+    "fileName": "ggml-base-q5_1.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base-q5_1.bin",
+    "size": 59707625
+  },
+  {
+    "id": "small",
+    "name": "Small",
+    "fileName": "ggml-small.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin",
+    "size": 487601967
+  },
+  {
+    "id": "small-q5_1",
+    "name": "Small Q5_1",
+    "fileName": "ggml-small-q5_1.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small-q5_1.bin",
+    "size": 190085487
+  },
+  {
+    "id": "medium",
+    "name": "Medium",
+    "fileName": "ggml-medium.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin",
+    "size": 1533763059
+  },
+  {
+    "id": "medium-q5_0",
+    "name": "Medium Q5_0",
+    "fileName": "ggml-medium-q5_0.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium-q5_0.bin",
+    "size": 539212467
+  },
+  {
+    "id": "large-v3-turbo",
+    "name": "Large v3 Turbo",
+    "fileName": "ggml-large-v3-turbo.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin",
+    "size": 1624555275
+  },
+  {
+    "id": "large-v3-turbo-q5_0",
+    "name": "Large v3 Turbo Q5_0",
+    "fileName": "ggml-large-v3-turbo-q5_0.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q5_0.bin",
+    "size": 574041195
+  },
+  {
+    "id": "large-v3",
+    "name": "Large v3",
+    "fileName": "ggml-large-v3.bin",
+    "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin",
+    "size": 3095033483
+  }
+]

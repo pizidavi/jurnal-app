@@ -2,14 +2,20 @@
   "general": {
     "apiKey": "API Key",
     "baseURL": "Base URL",
+    "cancel": "Cancel",
+    "confirmModelDelete": "Are you sure you want to delete this model?",
+    "delete": "Delete",
     "error": "Error",
     "goBack": "Go back",
     "hello": "Hello!",
     "llmProvider": "LLM Provider",
+    "no": "No",
     "record": "Record",
     "recording": "Recording",
     "save": "Save",
-    "settings": "Settings"
+    "settings": "Settings",
+    "warning": "Warning",
+    "yes": "Yes"
   },
   "migration": {
     "failed": "Error while running the update, please contact support",
@@ -19,13 +25,17 @@
     "notFound": "Note not found"
   },
   "notification": {
-    "noteProcessingChannelName": "Note transcription",
+    "noteProcessingBody": "Transcribing and enhancing your recording",
     "noteProcessingChannelDescription": "Notifications for note transcription",
-    "noteProcessingTitle": "Transcribing note",
-    "noteProcessingBody": "Transcribing and enhancing your recording"
+    "noteProcessingChannelName": "Note transcription",
+    "noteProcessingTitle": "Transcribing note"
   },
   "onboarding": {
     "1-setupModels": "Set up AI models",
     "2-pressButton": "Press the button below to get started!"
+  },
+  "settings": {
+    "models": "Models",
+    "transcriptionModel": "Transcription model"
   }
 }

@@ -1,0 +1,72 @@
+import { File, Paths } from 'expo-file-system';
+
+import transcriptionModels from '../../assets/transcription-models.json';
+import { useModelDownloadStore, useTranscriptionModelStore } from '../store/store';
+import type { Model } from '../type/entity';
+import { appLog } from '../util/logger';
+
+const MODEL_DIRECTORY = 'whisper-models';
+const DOWNLOAD_POLL_INTERVAL = 500;
+
+export const MODELS = transcriptionModels satisfies Model[];
+
+export const getModelById = (id: Model['id']) => MODELS.find(model => model.id === id);
+
+export const getModelFilename = (model: Model) =>
+  new File(Paths.document, MODEL_DIRECTORY, model.fileName);
+
+export const getDownloadStatus = (model: Model): 'downloaded' | 'degraded' | undefined => {
+  const file = getModelFilename(model);
+  if (!file.exists) return undefined;
+  return file.size === model.size ? 'downloaded' : 'degraded';
+};
+
+const setProgress = (id: Model['id'], progress: number) =>
+  useModelDownloadStore.setState(prev => ({
+    downloads: { ...prev.downloads, [id]: { progress } },
+  }));
+
+const removeDownload = (id: Model['id']) =>
+  useModelDownloadStore.setState(prev => ({
+    downloads: Object.fromEntries(Object.entries(prev.downloads).filter(([key]) => key !== id)),
+  }));
+
+export const downloadModel = async (model: Model) => {
+  if (useModelDownloadStore.getState().downloads[model.id] !== undefined) return;
+
+  setProgress(model.id, 0);
+
+  const file = getModelFilename(model);
+  file.parentDirectory.create({ intermediates: true, idempotent: true });
+
+  const interval = setInterval(
+    () => setProgress(model.id, Math.min(file.size / model.size, 1)),
+    DOWNLOAD_POLL_INTERVAL,
+  );
+
+  let result: 'downloaded' | 'degraded' | 'error';
+  try {
+    await File.downloadFileAsync(model.url, file, { idempotent: true });
+    result = file.size === model.size ? 'downloaded' : 'degraded';
+  } catch (e) {
+    appLog.error(`Failed to download transcription model ${model.id}`, e);
+    if (file.exists) file.delete();
+    result = 'error';
+  } finally {
+    clearInterval(interval);
+  }
+
+  removeDownload(model.id);
+
+  if (result === 'downloaded' && useTranscriptionModelStore.getState().id === undefined) {
+    useTranscriptionModelStore.getState().setId(model.id);
+  }
+};
+
+export const deleteModel = (model: Model) => {
+  if (useTranscriptionModelStore.getState().id === model.id) return;
+
+  const file = getModelFilename(model);
+  if (file.exists) file.delete();
+  removeDownload(model.id);
+};

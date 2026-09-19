@@ -4,9 +4,9 @@ React Native/Expo voice journaling app with TypeScript + TailwindCSS via Uniwind
 
 ## Commands
 
-- `yarn typecheck` - TypeScript validation
-- `yarn lint` - ESLint
-- `yarn format` - Prettier
+- `yarn run typecheck` - TypeScript validation
+- `yarn run lint` - ESLint
+- `yarn run format` - Prettier
 
 ## Key Files
 
@@ -33,7 +33,7 @@ One component per file, default export. Use function declarations for components
 Component structure order:
 
 1. Hook (e.g., `useNavigation()`)
-2. Global state (Zustand)
+2. Global state
 3. State (`useState`)
 4. Reference (`useRef`)
 5. API (`useQuery`)

@@ -6,7 +6,7 @@ import { useCSSVariable } from 'uniwind';
 type IconProps = {
   icon: LucideIcon;
   size?: number;
-  color?: 'primary' | 'primary-foreground' | 'foreground';
+  color?: 'primary' | 'primary-foreground' | 'foreground' | 'muted-foreground' | 'destructive';
   className?: string;
   onPress?: () => void;
   disabled?: boolean;
@@ -23,11 +23,19 @@ function Icon(props: IconProps) {
   } = props;
 
   // Hook
-  const [colorPrimary, colorPrimaryForeground, colorForeground] = useCSSVariable([
+  const [
+    colorPrimary,
+    colorPrimaryForeground,
+    colorForeground,
+    colorMutedForeground,
+    colorDestructive,
+  ] = useCSSVariable([
     '--primary',
     '--primary-foreground',
     '--foreground',
-  ]);
+    '--muted-foreground',
+    '--destructive',
+  ] satisfies `--${typeof color}`[]);
 
   // Memo
   const ContainerComponent = useMemo(() => (onPress ? Pressable : View), [onPress]);
@@ -40,9 +48,20 @@ function Icon(props: IconProps) {
         return colorPrimaryForeground?.toString() ?? '#000';
       case 'foreground':
         return colorForeground?.toString() ?? '#000';
+      case 'muted-foreground':
+        return colorMutedForeground?.toString() ?? '#888888';
+      case 'destructive':
+        return colorDestructive?.toString() ?? '#dc2626';
     }
     color satisfies never;
-  }, [color, colorPrimary, colorPrimaryForeground, colorForeground]);
+  }, [
+    color,
+    colorPrimary,
+    colorPrimaryForeground,
+    colorForeground,
+    colorMutedForeground,
+    colorDestructive,
+  ]);
 
   // Render
   return (
