@@ -2,7 +2,7 @@ import { CircleCheckIcon, DownloadIcon, TrashIcon, TriangleAlertIcon } from 'luc
 import { useCallback, useMemo, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { useModelDownloadStore, useTranscriptionModelStore } from '../../store/store';
+import { useModelDownloadStore, useSettingsStore } from '../../store/store';
 import type { Model } from '../../type/entity';
 import { showAlert } from '../../util/alert';
 import { formatBytes } from '../../util/formatter';
@@ -23,8 +23,7 @@ function ModelCard(props: ModelCardProps) {
 
   // Global state
   const download = useModelDownloadStore(state => state.downloads[model.id]);
-  const selectedTranscriptionModelId = useTranscriptionModelStore(state => state.id);
-  const setTranscriptionModelId = useTranscriptionModelStore(state => state.setId);
+  const selectedTranscriptionModelId = useSettingsStore(state => state.transcriptionModelId);
 
   // State
   const [updater, setUpdater] = useState<number>(0);
@@ -59,11 +58,11 @@ function ModelCard(props: ModelCardProps) {
       return;
     }
     if (diskStatus === 'downloaded') {
-      setTranscriptionModelId(model.id);
+      useSettingsStore.getState().setTranscriptionModelId(model.id);
       return;
     }
     void downloadModel(model);
-  }, [downloading, selected, diskStatus, setTranscriptionModelId, model]);
+  }, [downloading, selected, diskStatus, model]);
 
   const handleDelete = useCallback(() => {
     showAlert('general:warning', 'general:confirmModelDelete', [

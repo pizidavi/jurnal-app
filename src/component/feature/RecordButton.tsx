@@ -3,13 +3,13 @@ import { useCallback } from 'react';
 import { Pressable } from 'react-native';
 
 import { eventEmitter } from '../../config/client';
-import { useTranscriptionModelStore } from '../../store/store';
+import { useSettingsStore } from '../../store/store';
 import { appLog } from '../../util/logger';
 import Icon from '../common/Icon';
 
 function RecordButton() {
   // Global state
-  const transcriptionModelId = useTranscriptionModelStore(state => state.id);
+  const transcriptionModelId = useSettingsStore(state => state.transcriptionModelId);
 
   // Callback
   const handlePress = useCallback(() => {

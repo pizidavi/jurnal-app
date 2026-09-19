@@ -1,8 +1,8 @@
 import type { Model } from './entity';
 
-export type TranscriptionModelStore = {
-  id: Model['id'] | undefined;
-  setId: (id: Model['id']) => void;
+export type SettingsStore = {
+  transcriptionModelId: Model['id'] | undefined;
+  setTranscriptionModelId: (id: Model['id']) => void;
 };
 
 export type ModelDownloadStore = {

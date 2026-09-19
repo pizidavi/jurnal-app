@@ -1,7 +1,7 @@
 import { File, Paths } from 'expo-file-system';
 
 import transcriptionModels from '../../assets/transcription-models.json';
-import { useModelDownloadStore, useTranscriptionModelStore } from '../store/store';
+import { useModelDownloadStore, useSettingsStore } from '../store/store';
 import type { Model } from '../type/entity';
 import { appLog } from '../util/logger';
 
@@ -58,13 +58,13 @@ export const downloadModel = async (model: Model) => {
 
   removeDownload(model.id);
 
-  if (result === 'downloaded' && useTranscriptionModelStore.getState().id === undefined) {
-    useTranscriptionModelStore.getState().setId(model.id);
+  if (result === 'downloaded' && useSettingsStore.getState().transcriptionModelId === undefined) {
+    useSettingsStore.getState().setTranscriptionModelId(model.id);
   }
 };
 
 export const deleteModel = (model: Model) => {
-  if (useTranscriptionModelStore.getState().id === model.id) return;
+  if (useSettingsStore.getState().transcriptionModelId === model.id) return;
 
   const file = getModelFilename(model);
   if (file.exists) file.delete();

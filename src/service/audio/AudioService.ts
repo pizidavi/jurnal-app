@@ -1,4 +1,4 @@
-import { AudioRecorder, FileDirectory, FileFormat } from 'react-native-audio-api';
+import { AudioRecorder, FileDirectory, FileFormat, FilePreset } from 'react-native-audio-api';
 
 class AudioService {
   private readonly recorder: AudioRecorder = new AudioRecorder();
@@ -7,10 +7,11 @@ class AudioService {
     const timestamp = Date.now();
 
     this.recorder.enableFileOutput({
-      format: FileFormat.M4A,
+      format: FileFormat.Wav,
       directory: FileDirectory.Document,
       fileNamePrefix: `recording_${timestamp}`,
       channelCount: 1,
+      preset: FilePreset.Medium,
     });
 
     const result = this.recorder.start();
