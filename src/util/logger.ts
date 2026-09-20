@@ -12,6 +12,5 @@ const log = logger.createLogger({
   },
 });
 
-export const apiLog = log.extend('API');
 export const appLog = log.extend('APP');
 export const serviceLog = log.extend('SERVICE');

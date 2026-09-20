@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import { Alert } from 'react-native';
+import { Alert, ToastAndroid } from 'react-native';
 
 import type { Dictionary } from '../locale';
 
@@ -29,3 +29,6 @@ export const showAlert = (
         onPress: b.onPress,
       })),
   );
+
+export const showToastAndroid = (title: Dictionary) =>
+  ToastAndroid.show(t(title), ToastAndroid.SHORT);

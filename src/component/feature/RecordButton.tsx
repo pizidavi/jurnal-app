@@ -1,27 +1,46 @@
+import { useNavigation } from '@react-navigation/native';
 import { MicIcon } from 'lucide-react-native';
 import { useCallback } from 'react';
 import { Pressable } from 'react-native';
 
 import { eventEmitter } from '../../config/client';
 import { useSettingsStore } from '../../store/store';
+import type { AppNavigationProp } from '../../type/navigation';
+import { showAlert } from '../../util/alert';
 import { appLog } from '../../util/logger';
+import { requestRecordingPermissions } from '../../util/permission';
 import Icon from '../common/Icon';
 
 function RecordButton() {
+  // Hook
+  const navigation = useNavigation<AppNavigationProp>();
+
   // Global state
   const transcriptionModelId = useSettingsStore(state => state.transcriptionModelId);
 
   // Callback
   const handlePress = useCallback(() => {
-    if (!transcriptionModelId) {
-      appLog.warn('No transcription model selected, cannot start recording');
-      // TODO: show a toast to the user that no model is selected
-      return;
-    }
+    requestRecordingPermissions()
+      .then(granted => {
+        if (!granted) {
+          appLog.warn('No permission granted, cannot start recording');
+          return;
+        }
 
-    Promise.resolve()
-      .then(() => {
-        // Open the note modal
+        if (!transcriptionModelId) {
+          appLog.warn('No transcription model selected, cannot start recording');
+          showAlert('general:error', 'recording:noTranscriptionModel', [
+            { text: 'general:cancel', style: 'cancel' },
+            {
+              text: 'general:openSettings',
+              onPress: () => {
+                navigation.navigate('Settings');
+              },
+            },
+          ]);
+          return;
+        }
+
         eventEmitter.emit('note-modal:show');
       })
       .catch(e => {

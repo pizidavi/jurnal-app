@@ -1,3 +1,4 @@
+import { File } from 'expo-file-system';
 import { CircleStopIcon } from 'lucide-react-native';
 import { useCallback, useEffect, useState } from 'react';
 import { Modal, Platform, View } from 'react-native';
@@ -8,6 +9,7 @@ import { audioService, eventEmitter } from '../../config/client';
 import i18n from '../../locale';
 import { NOTIFICATION_CHANNEL } from '../../type/enum';
 import type { NoteProcessingNotificationData } from '../../type/struct';
+import { showAlert, showToastAndroid } from '../../util/alert';
 import { appLog } from '../../util/logger';
 import ActivityIndicator from '../common/ActivityIndicator';
 import Icon from '../common/Icon';
@@ -27,7 +29,7 @@ function AddNoteModal() {
       .then(() => appLog.debug('Recording started'))
       .catch((e: unknown) => {
         appLog.error('Failed to start recording', e);
-        // TODO: Show error toast
+        showAlert('general:error', 'recording:failStartRecording');
       });
   }, []);
 
@@ -39,7 +41,13 @@ function AddNoteModal() {
 
         if (result.duration < 2) {
           appLog.warn('Recording too short, ignoring');
-          // TODO: Show toast "Recording too short"
+          showToastAndroid('recording:recordingTooShort');
+
+          try {
+            new File(result.path).delete();
+          } catch (error) {
+            appLog.warn('Fail to delete short recording', error);
+          }
           return;
         }
 
@@ -49,7 +57,7 @@ function AddNoteModal() {
           title: i18n.t('notification:noteProcessingTitle'),
           body: i18n.t('notification:noteProcessingBody'),
           data: {
-            path: result.paths[0],
+            path: result.path,
           } satisfies NoteProcessingNotificationData,
           android: {
             channelId: NOTIFICATION_CHANNEL.NOTE_PROCESSING,
@@ -66,7 +74,7 @@ function AddNoteModal() {
       })
       .catch((e: unknown) => {
         appLog.error('Failed to stop recording', e);
-        // TODO: Show error toast
+        showAlert('general:error', 'recording:failStopRecording');
       });
   }, []);
 

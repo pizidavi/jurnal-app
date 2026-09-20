@@ -11,6 +11,7 @@
     "llmProvider": "LLM Provider",
     "no": "No",
     "notSet": "Not set",
+    "openSettings": "Open settings",
     "record": "Record",
     "recording": "Recording",
     "save": "Save",
@@ -34,6 +35,16 @@
   "onboarding": {
     "1-setupModels": "Set up AI models",
     "2-pressButton": "Press the button below to get started!"
+  },
+  "permission": {
+    "denied": "Permission required",
+    "deniedBody": "Microphone and notification permissions are required to record. Please enable them in the system settings."
+  },
+  "recording": {
+    "failStartRecording": "Error during the stop of the recording",
+    "failStopRecording": "Error during the start of the recording",
+    "noTranscriptionModel": "No transcription model selected, cannot start recording",
+    "recordingTooShort": "Recording too short, skip"
   },
   "settings": {
     "language": "Language",

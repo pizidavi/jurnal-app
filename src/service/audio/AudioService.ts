@@ -24,7 +24,10 @@ class AudioService {
     const result = this.recorder.stop();
     if (result.status === 'error') throw new Error(result.message);
 
-    return Promise.resolve(result);
+    return Promise.resolve({
+      path: result.paths[0],
+      duration: result.duration,
+    });
   }
 }
 
