@@ -11,6 +11,8 @@ export const useSettingsStore = create(
     set => ({
       transcriptionModelId: undefined,
       setTranscriptionModelId: id => set({ transcriptionModelId: id }),
+      llmModelId: undefined,
+      setLlmModelId: id => set({ llmModelId: id }),
       transcriptionLanguage: i18n.language as LANGUAGE,
       setTranscriptionLanguage: language => set({ transcriptionLanguage: language }),
     }),

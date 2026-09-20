@@ -5665,6 +5665,11 @@ listr2@^10.2.1:
     rfdc "^1.4.1"
     wrap-ansi "^10.0.0"
 
+llama.rn@~0.12.9:
+  version "0.12.9"
+  resolved "https://registry.yarnpkg.com/llama.rn/-/llama.rn-0.12.9.tgz#97c434394b598bf9fa82ed871ed424a633982c33"
+  integrity sha512-uRsTVARp1KnDkDg00FvOGIrN6SZfMqYVJfCOdxN9FSyGufLC+Aad6oFWZVEO8vmtNqu+JBlsCGevP4sJGifAvg==
+
 locate-path@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-5.0.0.tgz#1afba396afd676a6d42504d0a67a3a7eb9f62aa0"

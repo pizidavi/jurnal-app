@@ -6,7 +6,8 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
 import { version } from './package.json';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
-const env: 'production' | 'development' = process.env.EXPO_PUBLIC_ENVIRONMENT ?? 'development';
+const env: 'production' | 'preview' | 'development' =
+  process.env.EXPO_PUBLIC_ENVIRONMENT ?? 'development';
 
 module.exports = ({ config }: ConfigContext): Partial<ExpoConfig> => ({
   ...config,
@@ -39,6 +40,7 @@ function getPlugins(plugins: (string | [] | [string] | [string, any])[] | undefi
   plugins ??= [];
 
   plugins.push('./plugins/whisper.rn');
+  plugins.push('./plugins/llama.rn');
 
   if (NODE_ENV === 'development')
     plugins.push([

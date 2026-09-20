@@ -4,9 +4,10 @@ import { Pressable, Text, View } from 'react-native';
 
 import { useModelDownloadStore } from '../../store/store';
 import type { Model } from '../../type/entity';
+import type { MODEL_KIND } from '../../type/enum';
 import { showAlert } from '../../util/alert';
 import { formatBytes } from '../../util/formatter';
-import { deleteModel, downloadModel, getDownloadStatus } from '../../util/model';
+import { deleteModel, downloadModel, getDownloadKey, getDownloadStatus } from '../../util/model';
 import { clx } from '../../util/util';
 import ActivityIndicator from '../common/ActivityIndicator';
 import Icon from '../common/Icon';
@@ -16,15 +17,16 @@ type ModelCardStatus = 'not-downloaded' | 'downloading' | 'downloaded' | 'select
 
 type ModelCardProps = {
   model: Model;
+  kind: MODEL_KIND;
   selected?: boolean;
   onSelect?: () => void;
 };
 
 function ModelCard(props: ModelCardProps) {
-  const { model, selected = false, onSelect } = props;
+  const { model, kind, selected = false, onSelect } = props;
 
   // Global state
-  const download = useModelDownloadStore(state => state.downloads[model.id]);
+  const download = useModelDownloadStore(state => state.downloads[getDownloadKey(model, kind)]);
 
   // State
   const [updater, setUpdater] = useState<number>(0);
@@ -32,7 +34,10 @@ function ModelCard(props: ModelCardProps) {
   // Memo
   const downloading = download !== undefined;
 
-  const diskStatus = useMemo(() => getDownloadStatus(model), [updater, model, download]);
+  const diskStatus = useMemo(
+    () => getDownloadStatus(model, kind),
+    [updater, model, kind, download],
+  );
 
   const status = useMemo<ModelCardStatus>(() => {
     if (selected) return 'selected';
@@ -53,16 +58,16 @@ function ModelCard(props: ModelCardProps) {
   const handlePress = useCallback(() => {
     if (downloading || selected) return;
     if (diskStatus === 'degraded') {
-      deleteModel(model);
-      void downloadModel(model);
+      deleteModel(model, kind);
+      void downloadModel(model, kind);
       return;
     }
     if (diskStatus === 'downloaded') {
       onSelect?.();
       return;
     }
-    void downloadModel(model);
-  }, [downloading, selected, diskStatus, model]);
+    void downloadModel(model, kind);
+  }, [downloading, selected, diskStatus, model, kind]);
 
   const handleDelete = useCallback(() => {
     showAlert('general:warning', 'general:confirmModelDelete', [
@@ -71,12 +76,12 @@ function ModelCard(props: ModelCardProps) {
         text: 'general:delete',
         style: 'destructive',
         onPress: () => {
-          deleteModel(model);
+          deleteModel(model, kind);
           setUpdater(prev => (prev + 1) % 2);
         },
       },
     ]);
-  }, [model]);
+  }, [model, kind]);
 
   // Render
   return (

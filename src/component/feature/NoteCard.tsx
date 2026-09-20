@@ -31,7 +31,7 @@ function NoteCard(props: NoteCardProps) {
       <View className='items-center justify-center'>
         <LocaleText
           text={formatDate(note.createdAt)}
-          className='text-sm text-muted-foreground'
+          className='text-center text-sm text-muted-foreground'
           avoidTranslation
         />
       </View>

@@ -76,9 +76,14 @@ function Select<T>(props: SelectSheetSelectProps<T>) {
         onPress={() => sheetRef.current?.present()}
         style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
       >
-        <LocaleText text={label} className='flex-1 text-base font-medium' />
+        <LocaleText text={label} className='flex-2 text-base font-medium' />
         {value !== undefined ? (
-          <LocaleText text={value} avoidTranslation className='text-base text-muted-foreground' />
+          <LocaleText
+            text={value}
+            numberOfLines={1}
+            avoidTranslation
+            className='flex-1 text-right text-base text-muted-foreground'
+          />
         ) : (
           placeholder !== undefined && (
             <LocaleText text={placeholder} className='text-base text-muted-foreground' />
@@ -91,6 +96,4 @@ function Select<T>(props: SelectSheetSelectProps<T>) {
   );
 }
 
-SelectSheet.Select = Select;
-
-export default SelectSheet;
+export default Select;

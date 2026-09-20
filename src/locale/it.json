@@ -47,6 +47,7 @@
     "recordingTooShort": "Registrazione troppo breve, ignora"
   },
   "settings": {
+    "enhancementModel": "Modello di miglioramento",
     "language": "Lingua",
     "models": "Modelli",
     "transcriptionLanguage": "Lingua di trascrizione",

@@ -52,6 +52,8 @@ export const requestRecordingPermissions = async () => {
       name: i18n.t('notification:noteProcessingChannelName'),
       description: i18n.t('notification:noteProcessingChannelDescription'),
       importance: AndroidImportance.DEFAULT,
+      vibration: false,
+      lights: false,
     })
     .catch(e => {
       appLog.error('Failed to create notification channel', e);

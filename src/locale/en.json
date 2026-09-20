@@ -47,6 +47,7 @@
     "recordingTooShort": "Recording too short, skip"
   },
   "settings": {
+    "enhancementModel": "Enhancement model",
     "language": "Language",
     "models": "Models",
     "transcriptionLanguage": "Transcription language",
