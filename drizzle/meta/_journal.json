@@ -8,6 +8,13 @@
       "when": 1770920902145,
       "tag": "0000_strange_bloodscream",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1792340602548,
+      "tag": "0001_strange_masked_marvel",
+      "breakpoints": true
     }
   ]
 }

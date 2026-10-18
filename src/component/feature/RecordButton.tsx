@@ -17,6 +17,10 @@ function RecordButton() {
 
   // Global state
   const transcriptionModelId = useSettingsStore(state => state.transcriptionModelId);
+  const llmModelId = useSettingsStore(state => state.llmModelId);
+
+  // Memo
+  const isRecordingEnabled = !!transcriptionModelId && !!llmModelId;
 
   // Callback
   const handlePress = useCallback(() => {
@@ -27,17 +31,23 @@ function RecordButton() {
           return;
         }
 
-        if (!transcriptionModelId) {
-          appLog.warn('No transcription model selected, cannot start recording');
-          showAlert('general:error', 'recording:noTranscriptionModel', [
-            { text: 'general:cancel', style: 'cancel' },
-            {
-              text: 'general:openSettings',
-              onPress: () => {
-                navigation.navigate('Settings');
+        if (!isRecordingEnabled) {
+          appLog.warn(
+            `No ${!transcriptionModelId ? 'transcription' : 'LLM'} model selected, cannot start recording`,
+          );
+          showAlert(
+            'general:error',
+            !transcriptionModelId ? 'recording:noTranscriptionModel' : 'recording:noLLMModel',
+            [
+              { text: 'general:cancel', style: 'cancel' },
+              {
+                text: 'general:openSettings',
+                onPress: () => {
+                  navigation.navigate('Settings');
+                },
               },
-            },
-          ]);
+            ],
+          );
           return;
         }
 
@@ -46,12 +56,12 @@ function RecordButton() {
       .catch(e => {
         appLog.error('Failed to request permissions', e);
       });
-  }, [transcriptionModelId]);
+  }, [isRecordingEnabled, transcriptionModelId, llmModelId]);
 
   // Render
   return (
     <Pressable
-      className={`rounded-full ${transcriptionModelId ? 'bg-primary' : 'bg-muted-foreground'} px-xl py-base`}
+      className={`rounded-full ${isRecordingEnabled ? 'bg-primary' : 'bg-muted-foreground'} px-xl py-base`}
       onPress={handlePress}
     >
       <Icon icon={MicIcon} size={24} color='primary-foreground' />

@@ -6,7 +6,6 @@
     "apiKey": "API Key",
     "baseURL": "Base URL",
     "cancel": "Annulla",
-    "confirmModelDelete": "Sei sicuro di voler eliminare questo modello?",
     "delete": "Elimina",
     "error": "Errore",
     "goBack": "Torna indietro",
@@ -22,12 +21,16 @@
     "warning": "Attenzione",
     "yes": "Sì"
   },
+  "message": {
+    "confirmModelDelete": "Sei sicuro di voler eliminare questo modello?"
+  },
   "migration": {
     "failed": "Errore durante l'esecuzione dell'aggiornamento, contattare il supporto",
     "inProgress": "Aggiornamento in corso, attendere prego..."
   },
   "note": {
-    "notFound": "Nota non trovata"
+    "notFound": "Nota non trovata",
+    "originalAudio": "Audio originale"
   },
   "notification": {
     "noteProcessingBody": "Trascrizione e rifinitura della registrazione",
@@ -47,6 +50,7 @@
     "failStartRecording": "Errore durante l'avvio della registrazione",
     "failStopRecording": "Errore durante lo stop della registrazione",
     "noTranscriptionModel": "Nessun modello di trascrizione selezionato, impossibile avviare la registrazione",
+    "noLLMModel": "Nessun modello LLM selezionato, impossibile avviare la registrazione",
     "recordingTooShort": "Registrazione troppo breve, ignora"
   },
   "settings": {

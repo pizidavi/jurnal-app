@@ -61,7 +61,7 @@ function ModelCard(props: ModelCardProps) {
   }, [diskStatus, model, kind]);
 
   const handleDelete = useCallback(() => {
-    showAlert('general:warning', 'general:confirmModelDelete', [
+    showAlert('general:warning', 'message:confirmModelDelete', [
       { text: 'general:cancel', style: 'cancel' },
       {
         text: 'general:delete',

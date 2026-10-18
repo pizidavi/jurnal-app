@@ -5,3 +5,9 @@ export type Model = {
   url: string;
   size: number;
 };
+
+export type TranscriptionSegment = {
+  text: string;
+  t0: number;
+  t1: number;
+};

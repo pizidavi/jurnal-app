@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import Button from '../component/common/Button';
 import LocaleText from '../component/common/LocaleText';
 import MarkdownView from '../component/common/Markdown';
+import AudioPlayerBar from '../component/feature/AudioPlayerBar';
 import Header from '../component/feature/Header';
 import BaseScreen from '../component/navigation/BaseScreen';
 import { db } from '../config/client';
@@ -36,7 +37,14 @@ function NoteScreen({ navigation, route }: NoteScreenProps) {
       ) : (
         <>
           <Header title={formatDate(note.createdAt)} avoidTranslation />
-          <MarkdownView content={note.content} />
+          {note.audioPath && <AudioPlayerBar path={note.audioPath} />}
+          {note.content ? (
+            <MarkdownView content={note.content} />
+          ) : (
+            <View className='flex-1 items-center justify-center'>
+              <LocaleText text='general:notSet' className='text-h3' />
+            </View>
+          )}
         </>
       )}
     </BaseScreen>

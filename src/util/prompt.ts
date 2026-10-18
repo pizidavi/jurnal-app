@@ -15,5 +15,5 @@ The rules are:
 - Do not add any additional information or context not present in the original transcription
 - Keep the original language of the transcription
 
-You must respond with ONLY the refined text with no explanations, meta-commentary or any other content.
+You must respond with ONLY the refined text in Markdown with no explanations, meta-commentary or any other content.
 `;

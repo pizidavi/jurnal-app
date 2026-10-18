@@ -6,7 +6,6 @@
     "apiKey": "API Key",
     "baseURL": "Base URL",
     "cancel": "Cancel",
-    "confirmModelDelete": "Are you sure you want to delete this model?",
     "delete": "Delete",
     "error": "Error",
     "goBack": "Go back",
@@ -22,12 +21,16 @@
     "warning": "Warning",
     "yes": "Yes"
   },
+  "message": {
+    "confirmModelDelete": "Are you sure you want to delete this model?"
+  },
   "migration": {
     "failed": "Error while running the update, please contact support",
     "inProgress": "Update is in progress, please wait..."
   },
   "note": {
-    "notFound": "Note not found"
+    "notFound": "Note not found",
+    "originalAudio": "Original audio"
   },
   "notification": {
     "noteProcessingBody": "Transcribing and enhancing your recording",
@@ -47,6 +50,7 @@
     "failStartRecording": "Error during the stop of the recording",
     "failStopRecording": "Error during the start of the recording",
     "noTranscriptionModel": "No transcription model selected, cannot start recording",
+    "noLLMModel": "No LLM model selected, cannot start recording",
     "recordingTooShort": "Recording too short, skip"
   },
   "settings": {

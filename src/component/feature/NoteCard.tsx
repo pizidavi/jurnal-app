@@ -23,7 +23,7 @@ function NoteCard(props: NoteCardProps) {
     <View className={clx('gap-sm', className)}>
       <View className='rounded bg-surface p-sm'>
         <MarkdownView
-          content={note.content}
+          content={note.content ?? ''}
           textSize='sm'
           style={[height, { overflow: 'hidden' }]}
         />

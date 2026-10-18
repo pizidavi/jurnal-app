@@ -36,7 +36,7 @@ export const processNote = async (path: string): Promise<void> => {
   const [{ id: noteId }] = await db
     .insert(notesTable)
     .values({
-      content: '',
+      audioPath: path,
     })
     .returning({ id: notesTable.id });
 
@@ -45,22 +45,24 @@ export const processNote = async (path: string): Promise<void> => {
     filePath: transcriptionModelFilename.uri,
   });
 
-  appLog.debug('Transcribing audio', { path });
+  appLog.debug('Transcribing audio', { id: noteId, path });
   const { promise } = transcriptionContext.transcribe(path, {
     language,
+    temperature: 0.6,
   });
-  const { result: transcription } = await promise;
-  appLog.debug('Transcription completed', { path });
+  const { result: transcription, segments } = await promise;
+  appLog.debug('Transcription completed', { id: noteId });
 
   await transcriptionContext.release().catch(error => {
-    appLog.warn('Error releasing Whisper context', { error });
+    appLog.warn('Error releasing Whisper context', { id: noteId, error });
   });
 
   // Save note transcription
   await db
     .update(notesTable)
     .set({
-      content: transcription,
+      content: transcription, // Save the transcription as the initial content
+      segments: JSON.stringify(segments),
     })
     .where(eq(notesTable.id, noteId));
 
@@ -70,25 +72,28 @@ export const processNote = async (path: string): Promise<void> => {
     n_ctx: 4096,
   });
 
-  appLog.debug('Enhancing transcription', { path });
+  appLog.debug('Enhancing transcription', { id: noteId });
   const { content, text } = await llmContext.completion({
     messages: [
       { role: 'system', content: getEnhancementPrompt(language) },
       { role: 'user', content: transcription },
     ],
-    n_predict: 2048,
+    temperature: 0.6,
   });
-  appLog.debug('Enhancement completed', { path });
+  appLog.debug('Enhancement completed', { id: noteId });
+  llmContext.release().catch(error => {
+    appLog.warn('Error releasing LLM context', { id: noteId, error });
+  });
 
-  const result = (content || text || transcription).trim();
+  const enchanced = (content || text).trim();
 
   // Save note enhancement
   await db
     .update(notesTable)
     .set({
-      content: result,
+      content: enchanced,
     })
     .where(eq(notesTable.id, noteId));
 
-  appLog.info('Note process completed', { path, noteId, transcription, result });
+  appLog.info('Note process completed', { id: noteId, path, transcription, enchanced });
 };

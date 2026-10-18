@@ -2,7 +2,9 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 export const notesTable = sqliteTable('notes', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  content: text('content').notNull(),
+  content: text('content'),
+  segments: text('segments'),
+  audioPath: text('audio_path'),
   createdAt: integer('created_at')
     .notNull()
     .$defaultFn(() => Date.now()),
