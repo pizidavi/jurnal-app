@@ -10,6 +10,7 @@ import { Uniwind } from 'uniwind';
 
 import Navigation from './component/navigation/Navigation';
 import SQLiteProvider from './component/provider/SQLiteProvider';
+import useStartup from './hook/useStartup';
 
 AudioManager.setAudioSessionOptions({
   iosCategory: 'playAndRecord',
@@ -18,6 +19,9 @@ AudioManager.setAudioSessionOptions({
 });
 
 function App() {
+  // Hook
+  useStartup();
+
   // Render
   return <Navigation />;
 }

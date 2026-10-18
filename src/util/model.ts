@@ -1,12 +1,14 @@
-import { File, Paths } from 'expo-file-system';
+import { Directory, File, Paths } from 'expo-file-system';
 
 import llmModels from '../../assets/llm-models.json';
 import transcriptionModels from '../../assets/transcription-models.json';
+import { fetchDownloadSize } from '../api';
 import { useModelDownloadStore, useSettingsStore } from '../store/store';
 import type { Model } from '../type/entity';
 import { MODEL_KIND } from '../type/enum';
 import type { ModelDownloadKey } from '../type/store';
-import { appLog } from '../util/logger';
+import { showAlert } from './alert';
+import { appLog } from './logger';
 
 const MODEL_DIRECTORIES: Record<MODEL_KIND, string> = {
   [MODEL_KIND.TRANSCRIPTION]: 'whisper-models',
@@ -18,6 +20,8 @@ const MODEL_LISTS: Record<MODEL_KIND, Model[]> = {
   [MODEL_KIND.LLM]: llmModels satisfies Model[],
 };
 
+const DOWNLOADS_DIRECTORY = 'downloads';
+
 const DOWNLOAD_POLL_INTERVAL = 500;
 
 export const getModels = (kind: MODEL_KIND) => MODEL_LISTS[kind];
@@ -28,17 +32,24 @@ export const getModelById = (kind: MODEL_KIND, id: Model['id']) =>
 export const getModelFilename = (model: Model, kind: MODEL_KIND) =>
   new File(Paths.document, MODEL_DIRECTORIES[kind], model.fileName);
 
-export const getDownloadStatus = (
-  model: Model,
-  kind: MODEL_KIND,
-): 'downloaded' | 'degraded' | undefined => {
-  const file = getModelFilename(model, kind);
-  if (!file.exists) return undefined;
-  return file.size === model.size ? 'downloaded' : 'degraded';
-};
+export const getDownloadStatus = (model: Model, kind: MODEL_KIND): 'downloaded' | undefined =>
+  getModelFilename(model, kind).exists ? 'downloaded' : undefined;
 
 export const getDownloadKey = (model: Model, kind: MODEL_KIND): ModelDownloadKey =>
   `${kind}:${model.id}`;
+
+export const cleanupDownloads = () => {
+  const directory = new Directory(Paths.document, DOWNLOADS_DIRECTORY);
+  if (!directory.exists) return;
+  const entries = directory.list();
+  if (entries.length === 0) return;
+  appLog.debug(`Cleaning up ${entries.length} files in downloads directory ${directory.uri}`);
+  try {
+    directory.delete();
+  } catch (e) {
+    appLog.error(`Failed to clean up downloads directory ${directory.uri}`, e);
+  }
+};
 
 const setProgress = (key: ModelDownloadKey, progress: number) =>
   useModelDownloadStore.setState(prev => ({
@@ -73,30 +84,33 @@ export const downloadModel = async (model: Model, kind: MODEL_KIND) => {
   setProgress(key, 0);
 
   const file = getModelFilename(model, kind);
+  const tempFile = new File(Paths.document, DOWNLOADS_DIRECTORY, model.fileName);
+  tempFile.parentDirectory.create({ intermediates: true, idempotent: true });
   file.parentDirectory.create({ intermediates: true, idempotent: true });
 
+  const totalSize = (await fetchDownloadSize(model.url)) ?? model.size;
+
   const interval = setInterval(
-    () => setProgress(key, Math.min(file.size / model.size, 1)),
+    () => setProgress(key, Math.min(tempFile.size / totalSize, 1)),
     DOWNLOAD_POLL_INTERVAL,
   );
 
-  let result: 'downloaded' | 'degraded' | 'error';
   try {
     appLog.debug(`Downloading ${kind} model ${model.id} from ${model.url}`);
-    await File.downloadFileAsync(model.url, file, { idempotent: true });
-    appLog.debug(`Downloaded ${kind} model ${model.id} to ${file.uri}`);
-    result = file.size === model.size ? 'downloaded' : 'degraded';
+    await File.downloadFileAsync(model.url, tempFile, { idempotent: true });
+    appLog.debug(`Downloaded ${kind} model ${model.id} to ${tempFile.uri}`);
+    if (file.exists) file.delete();
+    tempFile.move(file);
+    setModelIfMissing(model, kind);
   } catch (e) {
     appLog.error(`Failed to download ${kind} model ${model.id}`, e);
-    if (file.exists) file.delete();
-    result = 'error';
+    if (tempFile.exists) tempFile.delete();
+    showAlert('general:error', 'error:modelDownloadFailed');
   } finally {
     clearInterval(interval);
   }
 
   removeDownload(key);
-
-  if (result === 'downloaded') setModelIfMissing(model, kind);
 };
 
 export const deleteModel = (model: Model, kind: MODEL_KIND) => {

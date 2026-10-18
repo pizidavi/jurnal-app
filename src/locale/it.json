@@ -1,4 +1,7 @@
 {
+  "error": {
+    "modelDownloadFailed": "Download del modello non riuscito"
+  },
   "general": {
     "apiKey": "API Key",
     "baseURL": "Base URL",

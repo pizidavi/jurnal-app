@@ -1,4 +1,4 @@
-import { CircleCheckIcon, DownloadIcon, TrashIcon, TriangleAlertIcon } from 'lucide-react-native';
+import { CircleCheckIcon, DownloadIcon, TrashIcon } from 'lucide-react-native';
 import { useCallback, useMemo, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
@@ -56,18 +56,9 @@ function ModelCard(props: ModelCardProps) {
 
   // Callback
   const handlePress = useCallback(() => {
-    if (downloading || selected) return;
-    if (diskStatus === 'degraded') {
-      deleteModel(model, kind);
-      void downloadModel(model, kind);
-      return;
-    }
-    if (diskStatus === 'downloaded') {
-      onSelect?.();
-      return;
-    }
-    void downloadModel(model, kind);
-  }, [downloading, selected, diskStatus, model, kind]);
+    if (diskStatus === 'downloaded') onSelect?.();
+    else void downloadModel(model, kind);
+  }, [diskStatus, model, kind]);
 
   const handleDelete = useCallback(() => {
     showAlert('general:warning', 'general:confirmModelDelete', [
@@ -92,12 +83,7 @@ function ModelCard(props: ModelCardProps) {
       style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
     >
       <View className='flex-1 gap-sm'>
-        <View className='flex-row items-center gap-sm'>
-          <LocaleText text={model.name} avoidTranslation className='text-base font-semibold' />
-          {diskStatus === 'degraded' && !downloading && (
-            <Icon icon={TriangleAlertIcon} size={16} color='destructive' />
-          )}
-        </View>
+        <LocaleText text={model.name} avoidTranslation className='text-base font-semibold' />
         <LocaleText
           text={formatBytes(model.size)}
           avoidTranslation
